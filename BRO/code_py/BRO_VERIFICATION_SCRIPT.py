@@ -12,7 +12,8 @@ X_BAND_RECEIVER
 
 import sys, os
 
-from pyvisa.constants import VI_ERROR_BERR, VI_ATTR_WIN_BASE_ADDR_32, VI_ATTR_WIN_BASE_ADDR_64
+#from Tools.scripts.patchcheck import status
+#from pyvisa.constants import VI_ERROR_BERR, VI_ATTR_WIN_BASE_ADDR_32, VI_ATTR_WIN_BASE_ADDR_64
 
 sys.path.insert(1, 'C:/Users/CLT/PycharmProjects/PythonProject/BRO/Include')
 import time
@@ -21,6 +22,7 @@ import pickle
 import lna_aadetect as aa_function
 import S_BAND_Identification as LNA
 import NF_SBAND as NF
+import GAIN_PHASE_S_BAND as GAIN
 import SPURIOUS_SBAND as SP
 import class_VNA as vna
 from datetime import datetime
@@ -40,9 +42,12 @@ offset      = 0
 _lim        = 0
 
 warehouse_file_name_target      =   'H:\DATA_WARE_HOUSE\VNA_set_1.pkl'
+_file_name_Spurious             =   ''
+
 
 _date_manufacturing_creation    =   '2018-12-11'
 _data_check_out_test            =   '2024-12-09'
+_Adr_LNA                        = ['0x49','0x4A','0x4B','0x4C' ]
 
 '''
 Class Object Initialisation
@@ -69,13 +74,16 @@ VNA_1.Gain = []
 VNA_1.Phase = []
 
 
+status, _file_name_for_saving_SC, _file_name_for_saving_S2P,_data                           =      GAIN._S_BAND_SPARAMETER(_LNA_number_1)
+#Status, VNA_1.temperature_check_out,  _port, _inuse, VNA_1.serial_number                   =      LNA.LNA_Identification(_LNA_number_1)
 
-Status, VNA_1.temperature_check_out,  _port, _inuse, VNA_1.serial_number            =      LNA.LNA_Identification(_LNA_number_1)
+#_NF_passed_status,_file_name_NF                                                            =      NF._NOISE_FIGURE_MEASURMENTS(0, 0, 0, 0, 0, 0, 0, _LNA_number_1 )
+#_SPURIOUS_passed_status, _file_name_Spurious                                               =      SP._SPURIOUS_MEASURMENTS(pdiv,ref,V_bw,R_bw,avg,Stop_freq,Start_freq,C_freq,points,offset,_lim, 2)
 
-_NF_passed_status,_file_name_NF                                                     =      NF._NOISE_FIGURE_MEASURMENTS(0, 0, 0, 0, 0, 0, 0, _LNA_number_1 )
-_SPURIOUS_passed_status, _file_name_Spurious                             =      SP._SPURIOUS_MEASURMENTS(pdiv,ref,V_bw,R_bw,avg,Stop_freq,Start_freq,C_freq,points,offset,_lim, 2)
-#_GAIN_passed_status        =   GAIN_S_BAND()
-VNA_1.Spurious = _file_name_Spurious
+VNA_1.Spurious              = _file_name_Spurious
+VNA_1.adress_hexadecimal    = _Adr_LNA[_LNA_number_1]
+VNA_1.S2P                   = _file_name_for_saving_S2P
+VNA_1.Gain_SC               = _file_name_for_saving_SC
 
 with open(warehouse_file_name_target, 'wb') as outp:
     pickle.dump(VNA_1, outp, pickle.HIGHEST_PROTOCOL)

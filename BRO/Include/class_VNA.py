@@ -23,11 +23,22 @@ class VNA():
     Main Patterns class. An object of this class contains a list of ``VNA`` with each member
     of the list being an ordered dictionary object.
     Attributes:
-
+        self.adress_hexadecimal     =   ''
+        self.serial_number          =   ''
+        self.create_date            =   ''
+        self.check_out_date         =   ''
+        self.temperature_check_out  =   temperaure in degrees
+        self.NF                     =   file name for Noise Figure measurments Snapshot
+        self.Spurious               =   file name for Spurious measurments Snapshot
+        self.S2P                    =   file name for S2p file
+        self.Gain_SC                =   file name for screen shot
+        self.Gain                   =   Gain in dB
+        self.Phase                  =   Unwrapped phase in degrees
     '''
     def __init__(self):
         '''
-        Initialization method - creates empty struture with no Patterns.
+        Initialization method - creates empty structure with no Patterns.
+
         '''
         self.comment_static_vars = ['//###########################################################',
                                     '//#                   STATIC VARIABLES                      #',
@@ -49,6 +60,8 @@ class VNA():
         self.temperature_check_out  =   ''
         self.NF                     =   []
         self.Spurious               =   []
+        self.S2P                    =   []
+        self.Gain_SC                =   []
         self.Gain                   =   []
         self.Phase                  =   []
 
