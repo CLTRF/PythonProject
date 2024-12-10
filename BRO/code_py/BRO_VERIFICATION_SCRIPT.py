@@ -69,6 +69,7 @@ VNA_1.Spurious = []
 VNA_1.Gain = []
 VNA_1.Phase = []
 
+
 Status, VNA_1.temperature_check_out,  _port, _inuse, VNA_1.serial_number            =      LNA.LNA_Identification(_LNA_number_1)
 
 _NF_passed_status,_file_name_NF                                                     =      NF._NOISE_FIGURE_MEASURMENTS(0, 0, 0, 0, 0, 0, 0, _LNA_number_1 )
