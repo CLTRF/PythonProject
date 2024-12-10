@@ -54,7 +54,6 @@ VNA_4   =   vna.VNA()
 '''
 VNA manufacturing and testing attributes
 '''
-
 ## VNA1
 ## To be implemented in loop
 VNA_1.adress_hexadecimal    = _LNA_number_1
