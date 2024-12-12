@@ -18,12 +18,10 @@ import includes.field_operations
 
 '''
 
-from skrf import Network, COMPONENT_FUNC_DICT
+from skrf import Network
 import matplotlib.pyplot as plt
 from skrf import plotting
 from skrf.plotting import save_all_figs
-import os
-import numpy as np
 
 class VNA():
     '''
@@ -96,81 +94,11 @@ class VNA():
 
         return temp_pat
 
-    def concat(self, _object_1, _object_2, _object_3, _object_4, legend):
-
-        _device_1 = Network(_object_1.S2P)
-        _device_2 = Network(_object_2.S2P)
-        _device_3 = Network(_object_3.S2P)
-        _device_4 = Network(_object_4.S2P)
-        device = Network(self.S2P)
-        #device = Network(frequency=_device_1.frequency,COMPONENT_FUNC_DICT= _device_1.COMPONENT_FUNC_DICT, PRIMARY_PROPERTY = _device_1.PRIMARY_PROPERTIES, number_of_ports=2, nports = _device_1.nports ,s11=_device_1.s21, s12=_device_2.s21,s21=_device_3.s21, s22=_device_4.s21,name='VNA1,2,3,4')
-        rng = np.random.default_rng()
-        s = (_device_1.a_deg_unwrap[0,1], _device_2.a_deg_unwrap[0,1], _device_2.a_deg_unwrap[0,1], _device_2.a_deg_unwrap[0,1])
-        #device = Network(frequency=_device_1.frequency, a_deg_unwrap = s, name='random values 2-port')
-
-        #device.s11 = _device_1.s21
-        #device.s12 = _device_2.s21
-        #device.s22 = _device_3.s21
-        #device.s21 = _device_4.s21
-
-        Phase_LNA_1_table = _device_1.a_deg_unwrap
-        Phase_LNA_2_table = _device_2.a_deg_unwrap
-        Phase_LNA_3_table = _device_3.a_deg_unwrap
-        Phase_LNA_4_table = _device_4.a_deg_unwrap
-
-        Phase_LNA_1 = Phase_LNA_1_table[:,1,0]
-        Phase_LNA_2 = Phase_LNA_2_table[:,1,0]
-        Phase_LNA_3 = Phase_LNA_3_table[:,1,0]
-        Phase_LNA_4 = Phase_LNA_4_table[:,1,0]
-
-        device.s11 = (_device_1.s21)*1
-        device.s12 = (_device_2.s21)*1
-        device.s22 = (_device_3.s21)*1
-        device.s21 = (_device_4.s21)*1
-
-        return Phase_LNA_1, Phase_LNA_2, Phase_LNA_3, Phase_LNA_4, _device_1.frequency.f
-
-        with plt.style.context('grayscale'):
-            # ring_slot.plot_s_deg()
-            device.frequency.unit = 'ghz'
-            plt.legend(loc=5)
-            plotting.add_markers_to_lines()
-            plt.legend()
-            #plt.legend('Phase Unwrap for LNA1, LNA2, LNA3, LNA4')  # have to re-generate legend
-            plt.title(legend + ' Phase unwrap')
-
-            device.s11.plot_s_deg_unwrap(m=0, n=0, label='LNA1')
-            device.s12.plot_s_deg_unwrap(m=0, n=0, label='LNA2')
-            device.s21.plot_s_deg_unwrap(m=0, n=0, label='LNA3')
-            device.s22.plot_s_deg_unwrap(m=0, n=0, label='LNA4')
-
-            plt.grid()
-            save_all_figs(self.WorkingDirectory, format=['png', 'eps', 'pdf'])
-            plt.clf()
-
-
     def save(self,legend,type_of_plot,s_param):
 
         _device = Network(self.S2P)
-
-        if not os.path.exists(self.WorkingDirectory):
-            os.makedirs(self.WorkingDirectory)
-
         # ring_slot.s21.plot_s_db()
         # ring_slot.s22.plot_s_deg_unwrap(m=0,n=0, label='S22 Phase unwrap')
-
-        if (type_of_plot == "angle_unwrapped") and (s_param == 'All_Phase_United'):
-            with plt.style.context('grayscale'):
-                # ring_slot.plot_s_deg()
-                _device.frequency.unit = 'ghz'
-                plt.legend(loc=5)
-                _device.plot_s_deg_unwrap(lw=3, label='Phase Unwrap for LNA1, LNA2, LNA3, LNA4')
-                plotting.add_markers_to_lines()
-                plt.legend('Phase Unwrap for LNA1, LNA2, LNA3, LNA4')  # have to re-generate legend
-                plt.title(legend + ' Phase unwrap')
-                plt.grid()
-                save_all_figs(self.WorkingDirectory, format=['png', 'eps', 'pdf'])
-                plt.clf()
 
         if (type_of_plot == "angle_unwrapped") and (s_param == 'S11'):
             with plt.style.context('grayscale'):
@@ -219,216 +147,8 @@ class VNA():
             background = plt.imread('C:/Users/CLT/PycharmProjects/PythonProject/BRO/Include/Smith_Chart.png')
     # tweak background position
             ax.imshow(background, extent=[-1.185, 1.14, -1.13, 1.155])
-            _device.s11.plot_s_smith()
-            save_all_figs(self.WorkingDirectory, format=['png', 'eps', 'pdf'])
-            #plt.show()
-            plt.clf()
-
-        if (type_of_plot == "angle_unwrapped") and (s_param == 'S22'):
-            with plt.style.context('grayscale'):
-                # ring_slot.plot_s_deg()
-                _device.frequency.unit = 'ghz'
-                plt.legend(loc=5)
-                _device.s22.plot_s_deg_unwrap(m=0, n=0, label='')
-                plotting.add_markers_to_lines()
-                plt.legend('')  # have to re-generate legend
-                plt.title(legend+' Phase unwrap')
-                plt.grid()
-                save_all_figs(self.WorkingDirectory, format=['png', 'eps', 'pdf'])
-                plt.clf()
-
-        if (type_of_plot == "angle_with_rotations") and (s_param == 'S22'):
-            with plt.style.context('grayscale'):
-                # ring_slot.plot_s_deg()
-                _device.frequency.unit = 'ghz'
-                plt.legend(loc=5)
-                _device.s22.plot_s_deg(m=0, n=0, label='')
-                plotting.add_markers_to_lines()
-                plt.legend('')  # have to re-generate legend
-                plt.title(legend+' Phase with rotations')
-                plt.grid()
-                save_all_figs(self.WorkingDirectory, format=['png', 'eps', 'pdf'])
-                plt.clf()
-
-        if (type_of_plot == "magnitude_dB") and (s_param == 'S22'):
-            with plt.style.context('grayscale'):
-                # ring_slot.plot_s_deg()
-                _device.frequency.unit = 'ghz'
-                plt.legend(loc=5)
-                _device.s22.plot_s_db(m=0, n=0, label='')
-                plotting.add_markers_to_lines()
-                plt.legend('')  # have to re-generate legend
-                plt.title(legend+' Amplitude_dB')
-                plt.grid()
-                save_all_figs(self.WorkingDirectory, format=['png', 'eps', 'pdf'])
-                plt.clf()
-
-        if (type_of_plot == "smith") and (s_param == 'S22'):
-            # prepare figure
-            fig, ax = plt.subplots(1, 1, figsize=(8, 8))
-            plt.legend(loc=5)
-            plt.title(legend + ' Smith')
-            background = plt.imread('C:/Users/CLT/PycharmProjects/PythonProject/BRO/Include/Smith_Chart.png')
-    # tweak background position
-            ax.imshow(background, extent=[-1.185, 1.14, -1.13, 1.155])
-            _device.s22.plot_s_smith()
-            save_all_figs(self.WorkingDirectory, format=['png', 'eps', 'pdf'])
-            #plt.show()
-            plt.clf()
-
-        if (type_of_plot == "angle_unwrapped") and (s_param == 'S21'):
-            with plt.style.context('grayscale'):
-                # ring_slot.plot_s_deg()
-                _device.frequency.unit = 'ghz'
-                plt.legend(loc=5)
-                _device.s21.plot_s_deg_unwrap(m=0, n=0, label='')
-                plotting.add_markers_to_lines()
-                plt.legend('')  # have to re-generate legend
-                plt.title(legend+' Phase unwrap')
-                plt.grid()
-                save_all_figs(self.WorkingDirectory, format=['png', 'eps', 'pdf'])
-                plt.clf()
-
-        if (type_of_plot == "angle_with_rotations") and (s_param == 'S21'):
-            with plt.style.context('grayscale'):
-                # ring_slot.plot_s_deg()
-                _device.frequency.unit = 'ghz'
-                plt.legend(loc=5)
-                _device.s21.plot_s_deg(m=0, n=0, label='')
-                plotting.add_markers_to_lines()
-                plt.legend('')  # have to re-generate legend
-                plt.title(legend+' Phase with rotations')
-                plt.grid()
-                save_all_figs(self.WorkingDirectory, format=['png', 'eps', 'pdf'])
-                plt.clf()
-
-        if (type_of_plot == "magnitude_dB") and (s_param == 'S21'):
-            with plt.style.context('grayscale'):
-                # ring_slot.plot_s_deg()
-                _device.frequency.unit = 'ghz'
-                plt.legend(loc=5)
-                _device.s21.plot_s_db(m=0, n=0, label='')
-                plotting.add_markers_to_lines()
-                plt.legend('')  # have to re-generate legend
-                plt.title(legend+' Amplitude_dB')
-                plt.grid()
-                save_all_figs(self.WorkingDirectory, format=['png', 'eps', 'pdf'])
-                plt.clf()
-
-        if (type_of_plot == "smith") and (s_param == 'S21'):
-            # prepare figure
-            fig, ax = plt.subplots(1, 1, figsize=(8, 8))
-            plt.legend(loc=5)
-            plt.title(legend + ' Smith')
-            background = plt.imread('C:/Users/CLT/PycharmProjects/PythonProject/BRO/Include/Smith_Chart.png')
-    # tweak background position
-            ax.imshow(background, extent=[-1.185, 1.14, -1.13, 1.155])
-            _device.s21.plot_s_smith()
-            save_all_figs(self.WorkingDirectory, format=['png', 'eps', 'pdf'])
-            #plt.show()
-            plt.clf()
-
-        if (type_of_plot == "angle_unwrapped") and (s_param == 'S12'):
-            with plt.style.context('grayscale'):
-                # ring_slot.plot_s_deg()
-                _device.frequency.unit = 'ghz'
-                plt.legend(loc=5)
-                _device.s12.plot_s_deg_unwrap(m=0, n=0, label='')
-                plotting.add_markers_to_lines()
-                plt.legend('')  # have to re-generate legend
-                plt.title(legend+' Phase unwrap')
-                plt.grid()
-                save_all_figs(self.WorkingDirectory, format=['png', 'eps', 'pdf'])
-                plt.clf()
-
-        if (type_of_plot == "angle_with_rotations") and (s_param == 'S12'):
-            with plt.style.context('grayscale'):
-                # ring_slot.plot_s_deg()
-                _device.frequency.unit = 'ghz'
-                plt.legend(loc=5)
-                _device.s12.plot_s_deg(m=0, n=0, label='')
-                plotting.add_markers_to_lines()
-                plt.legend('')  # have to re-generate legend
-                plt.title(legend+' Phase with rotations')
-                plt.grid()
-                save_all_figs(self.WorkingDirectory, format=['png', 'eps', 'pdf'])
-                plt.clf()
-
-        if (type_of_plot == "magnitude_dB") and (s_param == 'S12'):
-            with plt.style.context('grayscale'):
-                # ring_slot.plot_s_deg()
-                _device.frequency.unit = 'ghz'
-                plt.legend(loc=5)
-                _device.s12.plot_s_db(m=0, n=0, label='')
-                plotting.add_markers_to_lines()
-                plt.legend('')  # have to re-generate legend
-                plt.title(legend+' Amplitude_dB')
-                plt.grid()
-                save_all_figs(self.WorkingDirectory, format=['png', 'eps', 'pdf'])
-                plt.clf()
-
-        if (type_of_plot == "smith") and (s_param == 'S12'):
-            # prepare figure
-            fig, ax = plt.subplots(1, 1, figsize=(8, 8))
-            plt.legend(loc=5)
-            plt.title(legend + ' Smith')
-            background = plt.imread('C:/Users/CLT/PycharmProjects/PythonProject/BRO/Include/Smith_Chart.png')
-    # tweak background position
-            ax.imshow(background, extent=[-1.185, 1.14, -1.13, 1.155])
-            _device.s12.plot_s_smith()
-            save_all_figs(self.WorkingDirectory, format=['png', 'eps', 'pdf'])
-            #plt.show()
-            plt.clf()
-
-        if (type_of_plot == "angle_unwrapped") and (s_param == 'ALL_UNITED'):
-            with plt.style.context('grayscale'):
-                # ring_slot.plot_s_deg()
-                _device.frequency.unit = 'ghz'
-                plt.legend(loc=5)
-                _device.plot_s_deg_unwrap(m=0, n=0, label='')
-                plotting.add_markers_to_lines()
-                plt.legend('')  # have to re-generate legend
-                plt.title(legend+' Phase unwrap')
-                plt.grid()
-                save_all_figs(self.WorkingDirectory, format=['png', 'eps', 'pdf'])
-                plt.clf()
-
-        if (type_of_plot == "angle_with_rotations") and (s_param == 'ALL_UNITED'):
-            with plt.style.context('grayscale'):
-                # ring_slot.plot_s_deg()
-                _device.frequency.unit = 'ghz'
-                plt.legend(loc=5)
-                _device.plot_s_deg(m=0, n=0, label='')
-                plotting.add_markers_to_lines()
-                plt.legend('')  # have to re-generate legend
-                plt.title(legend+' Phase with rotations')
-                plt.grid()
-                save_all_figs(self.WorkingDirectory, format=['png', 'eps', 'pdf'])
-                plt.clf()
-
-        if (type_of_plot == "magnitude_dB") and (s_param == 'ALL_UNITED'):
-            with plt.style.context('grayscale'):
-                # ring_slot.plot_s_deg()
-                _device.frequency.unit = 'ghz'
-                plt.legend(loc=5)
-                _device.plot_s_db(m=0, n=0, label='')
-                plotting.add_markers_to_lines()
-                plt.legend('')  # have to re-generate legend
-                plt.title(legend+' Amplitude_dB')
-                plt.grid()
-                save_all_figs(self.WorkingDirectory, format=['png', 'eps', 'pdf'])
-                plt.clf()
-
-        if (type_of_plot == "smith") and (s_param == 'ALL_UNITED'):
-            # prepare figure
-            fig, ax = plt.subplots(1, 1, figsize=(8, 8))
-            plt.legend(loc=5)
-            plt.title(legend + ' Smith')
-            background = plt.imread('C:/Users/CLT/PycharmProjects/PythonProject/BRO/Include/Smith_Chart.png')
-    # tweak background position
-            ax.imshow(background, extent=[-1.185, 1.14, -1.13, 1.155])
-            _device.s12.plot_s_smith()
-            save_all_figs(self.WorkingDirectory, format=['png', 'eps', 'pdf'])
+            _device.plot_s_smith()
+            #save_all_figs(self.WorkingDirectory, format=['png', 'eps', 'pdf'])
             #plt.show()
             plt.clf()
 

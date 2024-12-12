@@ -1,9 +1,74 @@
+'''
+Author: CLT, date_ 12/12/2024
+'this function measures the S2P parameter for the S Band LNA
+'''
+
+def Plot_and_Save_Delta_Phase(Frequency_Vector, Phase_Table, Index_Ref, File_name_fig):
+    '''
+     Standard plotting functions for the Unwrap phase object
+
+     Arguments:
+         Phase_Table : numpy type of.
+
+             - 'XZ' = ['theta', [0]] - sweep angle theta at phi 0 degrees.
+             - 'YZ' = ['theta', [90]] - sweep angle theta at phi 90 degrees.
+             - 'XY' = ['phi', [90]] - sweep angle phi at theta 90 degrees.
+
+         xtick_spacing (int): defines the x axis major ticks. Since these plots are angles this\
+             effectively sets the angular resolution of the grid of the plot.
+
+         linear_plot_offset (int): defined the degrees of offset to be applied to the data along\
+             the **X axis** in case of linear plots. This is particular useful for linear plots\
+             of gain in case the antenna primary gain is in the theta=0 degrees direction -\
+             typical patch antenna. Setting this to 180 degrees brings the peak at the center \
+             of the plot.
+
+     Returns:
+         object: returns a handle to the newly created figure. It also outputs the figure in\
+             PDF/SVG and PNG formats at the output folder in the settings.
+     '''
+
+    import sys
+    import os
+    import numpy as np
+    from mpl_toolkits.mplot3d import Axes3D
+    from matplotlib import cm
+    import matplotlib.pyplot as plt
+    from matplotlib.colors import BoundaryNorm
+    from matplotlib.ticker import MaxNLocator
+
+    _Vector_Phase_Reference = Phase_Table[Index_Ref]
+    _Vector_Diff_LNA_1 = Phase_Table[0] - Phase_Table[Index_Ref]
+    _Vector_Diff_LNA_2 = Phase_Table[1] - Phase_Table[Index_Ref]
+    _Vector_Diff_LNA_3 = Phase_Table[2] - Phase_Table[Index_Ref]
+    _Vector_Diff_LNA_4 = Phase_Table[3] - Phase_Table[Index_Ref]
+
+    data_to_plot = []
+    plot_axis = Frequency_Vector
+    fig = plt.figure()
+    plt.title('Phase unwrap differences_reference_LNA:'+str(Index_Ref))
+    plt.legend('Phase unwrap differences_reference_LNA:'+str(Index_Ref))
+    plt.xlabel('Frequency in GHz')
+    plt.ylabel('Delta angle in degrees')
+
+    ax1 = fig.add_axes([0.1, 0.1, 0.8, 0.9])
+
+    ax1.plot(plot_axis, _Vector_Diff_LNA_1)
+    ax1.plot(plot_axis, _Vector_Diff_LNA_2)
+    ax1.plot(plot_axis, _Vector_Diff_LNA_3)
+    ax1.plot(plot_axis, _Vector_Diff_LNA_4)
+
+    plt.grid(True)
+
+    plt.savefig(File_name_fig+'.png')
+    plt.savefig(File_name_fig+'.pdf')
+    plt.savefig(File_name_fig+'.eps')
+
+    ## plt.show()
+
+    return fig
 
 def _S_BAND_SPARAMETER(_LNA_no):
-
-    """
-   this function measures the S2P parameter for the S Band LNA
-    """
 
     import sys,os
 
@@ -32,7 +97,7 @@ def _S_BAND_SPARAMETER(_LNA_no):
     _now_string = _now.strftime("%d%m%y_%H%M%S")
 
     _file_name_for_saving_sc = "C:\\" + "LNA" + str(_LNA_no) + "\\"+ "LNA"+str(_LNA_no)+"_" + _now_string +"_Gain_"+"Screenshot.png"
-    _file_name_for_saving_S2P = "C:\\" + "LNA" + str(_LNA_no) + "\\" +"LNA"+str(_LNA_no)+"_" + _now_string +"_Gain_"+"Gain.s2p"
+    _file_name_for_saving_S2P = "C:\\" + "LNA" + str(_LNA_no) + "\\" +"LNA"+str(_LNA_no)+"_" + _now_string +"Gain.s2p"
 
     _ZNB20.save_screenshot_png(_file_name_for_saving_sc)
     _data = _ZNB20.save_touchstone(_file_name_for_saving_S2P, trace =1 )
@@ -85,5 +150,4 @@ def save_to_excel(patterns_obj, filename = 'Default_XLS'):
 
     worksheet = workbook.create_sheet(title=str(pat)+'_'+field+'_'+field_format)
 ##    __fill_worksheet(worksheet, context, temp_field)   .Gain
-
     workbook.save(filename)

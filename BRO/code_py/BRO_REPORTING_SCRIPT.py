@@ -30,18 +30,31 @@ from skrf import Network
 import matplotlib.pyplot as plt
 from skrf import plotting
 from skrf.plotting import save_all_figs
+import os
 
 '''
 Class Object Initialisation
 '''
-VNA_1       =   vna.VNA()
-VNA_2       =   vna.VNA()
-VNA_3       =   vna.VNA()
-VNA_4       =   vna.VNA()
-VNA_TEMP    =   vna.VNA()
+VNA_1           =   vna.VNA()
+VNA_2           =   vna.VNA()
+VNA_3           =   vna.VNA()
+VNA_4           =   vna.VNA()
+VNA_TEMP        =   vna.VNA()
+VNA_TEMP_CONCAT =   vna.VNA()
+UW_Phase_Table  =   []
+Phase_Reference =   1
 
-warehouse_file_name =   'H:\DATA_WARE_HOUSE\VNA_set_1.pkl'
 
+### Provision to Excel Generation file
+
+#filename = 'output//' + filename + '.xlsx'
+#if os.path.isfile(filename):
+#    workbook = load_workbook(filename)
+#else:
+#    workbook = Workbook()
+
+
+warehouse_file_name         =   'H:\DATA_WARE_HOUSE\VNA_set_1.pkl'
 print('loading object from:', warehouse_file_name)
 
 list_of_objects = []
@@ -55,17 +68,34 @@ with open(warehouse_file_name, 'rb') as input:
 #for i in range(0,number_of_objects_to_be_loaded,1):
 #    VNA_TEMP = pickle.load(input)
 #    print('i:',i)
+## _TEMP is used during the testing process
+
+list_of_objects.append(VNA_TEMP)
+list_of_objects.append(VNA_TEMP)
+list_of_objects.append(VNA_TEMP)
 list_of_objects.append(VNA_TEMP)
 
+VNA_TEMP_CONCAT = VNA_TEMP
+
 print('ADRESS:', VNA_TEMP.S2P)
-VNA_TEMP.WorkingDirectory = 'H:\\DATA_WARE_HOUSE' + '\\' + 'data\\'
 
-VNA_TEMP.save('BRO_9_S_BAND_LNA',"angle_unwrapped",'S11')
-VNA_TEMP.save('BRO_9_S_BAND_LNA',"magnitude_dB",'S11')
-VNA_TEMP.save('BRO_9_S_BAND_LNA',"angle_with_rotations",'S11')
-## To be debugged - something wrong with Save function
-# VNA_TEMP.save('BRO_9_S_BAND_LNA',"smith",'S11')
+__S_PARAMETER_DISPLAY       =   'S21'
+VNA_TEMP.WorkingDirectory   =   'H:\\DATA_WARE_HOUSE' + '\\' + 'data\\'+__S_PARAMETER_DISPLAY
 
-##VNA_TEMP.__save_S22('BRO_9_S_BAND_LNA',"angle_unwrapped")
-##VNA_TEMP.__save_S21('BRO_9_S_BAND_LNA',"angle_unwrapped")
-##VNA_TEMP.__save_S12('BRO_9_S_BAND_LNA',"angle_unwrapped")
+VNA_TEMP.save('BRO_9_S_BAND_LNA_'+__S_PARAMETER_DISPLAY,"smith",__S_PARAMETER_DISPLAY)
+VNA_TEMP.save('BRO_9_S_BAND_LNA_'+__S_PARAMETER_DISPLAY,"angle_unwrapped",__S_PARAMETER_DISPLAY)
+VNA_TEMP.save('BRO_9_S_BAND_LNA_'+__S_PARAMETER_DISPLAY,"magnitude_dB",__S_PARAMETER_DISPLAY)
+VNA_TEMP.save('BRO_9_S_BAND_LNA_'+__S_PARAMETER_DISPLAY,"angle_with_rotations",__S_PARAMETER_DISPLAY)
+
+__S_PARAMETER_DISPLAY       =   'All_Phase_United'
+VNA_TEMP.WorkingDirectory   =   'H:\\DATA_WARE_HOUSE' + '\\' + 'data\\'+__S_PARAMETER_DISPLAY
+
+# Need a debug
+[UW_Phase_LNA_1, UW_Phase_LNA_2, UW_Phase_LNA_3, UW_Phase_LNA_4, Frequency_Vector] = VNA_TEMP_CONCAT.concat(list_of_objects[0], list_of_objects[1],list_of_objects[2],list_of_objects[3],"angle_unwrapped")
+
+UW_Phase_Table.append(UW_Phase_LNA_1)
+UW_Phase_Table.append(UW_Phase_LNA_2)
+UW_Phase_Table.append(UW_Phase_LNA_3)
+UW_Phase_Table.append(UW_Phase_LNA_4)
+
+Status = GAIN.Plot_and_Save_Delta_Phase(Frequency_Vector, UW_Phase_Table, Phase_Reference, VNA_TEMP.WorkingDirectory+'\\Phase_Diff' )
