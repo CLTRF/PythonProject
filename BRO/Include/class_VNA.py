@@ -98,6 +98,9 @@ class VNA():
 
     def concat(self, _object_1, _object_2, _object_3, _object_4, legend):
 
+        if not os.path.exists(self.WorkingDirectory):
+            os.makedirs(self.WorkingDirectory)
+
         _device_1 = Network(_object_1.S2P)
         _device_2 = Network(_object_2.S2P)
         _device_3 = Network(_object_3.S2P)
@@ -273,7 +276,6 @@ class VNA():
             ax.imshow(background, extent=[-1.185, 1.14, -1.13, 1.155])
             _device.s22.plot_s_smith()
             save_all_figs(self.WorkingDirectory, format=['png', 'eps', 'pdf'])
-            #plt.show()
             plt.clf()
 
         if (type_of_plot == "angle_unwrapped") and (s_param == 'S21'):

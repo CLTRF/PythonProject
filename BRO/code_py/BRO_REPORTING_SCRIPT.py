@@ -31,6 +31,7 @@ import matplotlib.pyplot as plt
 from skrf import plotting
 from skrf.plotting import save_all_figs
 import os
+from time import sleep
 
 '''
 Class Object Initialisation
@@ -53,8 +54,35 @@ Phase_Reference =   1
 #else:
 #    workbook = Workbook()
 
+_LNA_number = 1
 
-warehouse_file_name         =   'H:\DATA_WARE_HOUSE\VNA_set_1.pkl'
+warehouse_directory             =   'H:\\DATA_WARE_HOUSE'
+if not os.path.exists(warehouse_directory):
+    os.makedirs(warehouse_directory)
+
+warehouse_sub_directory             =   warehouse_directory+'\\data'
+if not os.path.exists(warehouse_sub_directory):
+    os.makedirs(warehouse_sub_directory)
+
+if (_LNA_number == 0):
+    warehouse_sub_directory = warehouse_directory + '\\data\\CAL'
+    if not os.path.exists(warehouse_sub_directory):
+        os.makedirs(warehouse_sub_directory)
+else:
+    warehouse_sub_directory = warehouse_directory + '\\data\\LNA'+str(_LNA_number)
+    if not os.path.exists(warehouse_sub_directory):
+        os.makedirs(warehouse_sub_directory)
+
+if (_LNA_number == 0):
+    object_name = 'cal_kit'
+else:
+    object_name = 'LNA'+str(_LNA_number)
+
+
+warehouse_file_name            =    warehouse_sub_directory +  '\\' + object_name + '.pkl'
+#warehouse_file_name             =   'H:\DATA_WARE_HOUSE\VNA_calibration.pkl'
+
+
 print('loading object from:', warehouse_file_name)
 
 list_of_objects = []
@@ -76,20 +104,48 @@ list_of_objects.append(VNA_TEMP)
 list_of_objects.append(VNA_TEMP)
 
 VNA_TEMP_CONCAT = VNA_TEMP
-
 print('ADRESS:', VNA_TEMP.S2P)
+
+if not os.path.exists('H:\\DATA_WARE_HOUSE' + '\\' + 'data\\'):
+    os.makedirs('H:\\DATA_WARE_HOUSE' + '\\' + 'data\\')
+
+
+__S_PARAMETER_DISPLAY       =   'S22'
+VNA_TEMP.WorkingDirectory   =   'H:\\DATA_WARE_HOUSE' + '\\' + 'data\\'+__S_PARAMETER_DISPLAY
+VNA_TEMP.save('object_name+serial_number'+__S_PARAMETER_DISPLAY,"smith",__S_PARAMETER_DISPLAY)
+VNA_TEMP.save('object_name+serial_number'+__S_PARAMETER_DISPLAY,"angle_unwrapped",__S_PARAMETER_DISPLAY)
+VNA_TEMP.save('object_name+serial_number'+__S_PARAMETER_DISPLAY,"magnitude_dB",__S_PARAMETER_DISPLAY)
+VNA_TEMP.save('object_name+serial_number'+__S_PARAMETER_DISPLAY,"angle_with_rotations",__S_PARAMETER_DISPLAY)
+sleep(1)
+
+__S_PARAMETER_DISPLAY       =   'S11'
+VNA_TEMP.WorkingDirectory   =   'H:\\DATA_WARE_HOUSE' + '\\' + 'data\\'+__S_PARAMETER_DISPLAY
+VNA_TEMP.save('object_name+serial_number'+__S_PARAMETER_DISPLAY,"smith",__S_PARAMETER_DISPLAY)
+VNA_TEMP.save('object_name+serial_number'+__S_PARAMETER_DISPLAY,"angle_unwrapped",__S_PARAMETER_DISPLAY)
+VNA_TEMP.save('object_name+serial_number'+__S_PARAMETER_DISPLAY,"magnitude_dB",__S_PARAMETER_DISPLAY)
+VNA_TEMP.save('object_name+serial_number'+__S_PARAMETER_DISPLAY,"angle_with_rotations",__S_PARAMETER_DISPLAY)
+sleep(1)
+
+__S_PARAMETER_DISPLAY       =   'S12'
+VNA_TEMP.WorkingDirectory   =   'H:\\DATA_WARE_HOUSE' + '\\' + 'data\\'+__S_PARAMETER_DISPLAY
+VNA_TEMP.save('object_name+serial_number'+__S_PARAMETER_DISPLAY,"smith",__S_PARAMETER_DISPLAY)
+VNA_TEMP.save('object_name+serial_number'+__S_PARAMETER_DISPLAY,"angle_unwrapped",__S_PARAMETER_DISPLAY)
+VNA_TEMP.save('object_name+serial_number'+__S_PARAMETER_DISPLAY,"magnitude_dB",__S_PARAMETER_DISPLAY)
+VNA_TEMP.save('object_name+serial_number'+__S_PARAMETER_DISPLAY,"angle_with_rotations",__S_PARAMETER_DISPLAY)
+sleep(1)
 
 __S_PARAMETER_DISPLAY       =   'S21'
 VNA_TEMP.WorkingDirectory   =   'H:\\DATA_WARE_HOUSE' + '\\' + 'data\\'+__S_PARAMETER_DISPLAY
+VNA_TEMP.save('object_name+serial_number'+__S_PARAMETER_DISPLAY,"smith",__S_PARAMETER_DISPLAY)
+VNA_TEMP.save('object_name+serial_number'+__S_PARAMETER_DISPLAY,"angle_unwrapped",__S_PARAMETER_DISPLAY)
+VNA_TEMP.save('object_name+serial_number'+__S_PARAMETER_DISPLAY,"magnitude_dB",__S_PARAMETER_DISPLAY)
+VNA_TEMP.save('object_name+serial_number'+__S_PARAMETER_DISPLAY,"angle_with_rotations",__S_PARAMETER_DISPLAY)
+sleep(1)
 
-VNA_TEMP.save('BRO_9_S_BAND_LNA_'+__S_PARAMETER_DISPLAY,"smith",__S_PARAMETER_DISPLAY)
-VNA_TEMP.save('BRO_9_S_BAND_LNA_'+__S_PARAMETER_DISPLAY,"angle_unwrapped",__S_PARAMETER_DISPLAY)
-VNA_TEMP.save('BRO_9_S_BAND_LNA_'+__S_PARAMETER_DISPLAY,"magnitude_dB",__S_PARAMETER_DISPLAY)
-VNA_TEMP.save('BRO_9_S_BAND_LNA_'+__S_PARAMETER_DISPLAY,"angle_with_rotations",__S_PARAMETER_DISPLAY)
+
 
 __S_PARAMETER_DISPLAY       =   'All_Phase_United'
 VNA_TEMP.WorkingDirectory   =   'H:\\DATA_WARE_HOUSE' + '\\' + 'data\\'+__S_PARAMETER_DISPLAY
-
 # Need a debug
 [UW_Phase_LNA_1, UW_Phase_LNA_2, UW_Phase_LNA_3, UW_Phase_LNA_4, Frequency_Vector] = VNA_TEMP_CONCAT.concat(list_of_objects[0], list_of_objects[1],list_of_objects[2],list_of_objects[3],"angle_unwrapped")
 

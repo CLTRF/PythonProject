@@ -27,7 +27,7 @@ import SPURIOUS_SBAND as SP
 import class_VNA as vna
 from datetime import datetime
 
-_LNA_number_1 = 3
+## If _LNA_number = 0 then it is calibration kit
 
 pdiv        = 10
 ref         = 0
@@ -41,13 +41,44 @@ points      = 801
 offset      = 0
 _lim        = 0
 
-warehouse_file_name_target      =   'H:\DATA_WARE_HOUSE\VNA_set_1.pkl'
+_LNA_number = 4
+if (_LNA_number == 0):
+    object_name = 'cal_kit'
+else:
+    object_name = 'LNA'+str(_LNA_number)
+
+serial_nmuber = 'ZV-135'
+#object_name = 'LNA1'
+
+warehouse_directory = 'H:\\DATA_WARE_HOUSE'
+if not os.path.exists(warehouse_directory):
+    os.makedirs(warehouse_directory)
+
+warehouse_sub_directory = warehouse_directory + '\\data'
+if not os.path.exists(warehouse_sub_directory):
+    os.makedirs(warehouse_sub_directory)
+
+if (_LNA_number == 0):
+    warehouse_sub_directory = warehouse_directory + '\\data\\CAL'
+    if not os.path.exists(warehouse_sub_directory):
+        os.makedirs(warehouse_sub_directory)
+else:
+    warehouse_sub_directory = warehouse_directory + '\\data\\LNA'+str(_LNA_number)
+    if not os.path.exists(warehouse_sub_directory):
+        os.makedirs(warehouse_sub_directory)
+
+
+warehouse_file_name = warehouse_sub_directory + '\\' + object_name +'.pkl'
+
+warehouse_file_name_target      =   warehouse_file_name
 _file_name_Spurious             =   ''
 
 
-_date_manufacturing_creation    =   '2018-12-11'
-_data_check_out_test            =   '2024-12-09'
-_Adr_LNA                        = ['0x49','0x4A','0x4B','0x4C' ]
+_date_manufacturing_creation    =   '2024-12-13'
+_data_check_out_test            =   '2024-12-13'
+#_Adr_LNA                        = ['0x49','0x4A','0x4B','0x4C' ]
+# for test
+_Adr_LNA                        = [0x4C,0x4C,0x4C,0x4C]
 
 '''
 Class Object Initialisation
@@ -61,7 +92,7 @@ VNA manufacturing and testing attributes
 '''
 ## VNA1
 ## To be implemented in loop
-VNA_1.adress_hexadecimal    = _LNA_number_1
+VNA_1.adress_hexadecimal    = _LNA_number
 VNA_1.create_date           = _date_manufacturing_creation
 VNA_1.check_out_date        = _data_check_out_test
 VNA_1.NF = []
@@ -73,17 +104,24 @@ VNA_1.Spurious = []
 VNA_1.Gain = []
 VNA_1.Phase = []
 
+if (_LNA_number == 0):
+    if not os.path.exists('H:\\DATA_WARE_HOUSE' + '\\' + 'data\\'):
+        os.makedirs('H:\\DATA_WARE_HOUSE' + '\\' + 'data\\')
+else:
+    if not os.path.exists('H:\\DATA_WARE_HOUSE' + '\\' + 'data\\LNA'+str(_LNA_number)):
+        os.makedirs('H:\\DATA_WARE_HOUSE' + '\\' + 'data\\LNA1'+str(_LNA_number))
 
-status, _file_name_for_saving_SC, _file_name_for_saving_S2P,_data                           =      GAIN._S_BAND_SPARAMETER(_LNA_number_1)
-### Temporary
 #status                                                                                      =      GAIN.save_to_excel()
-Status, VNA_1.temperature_check_out,  _port, _inuse, VNA_1.serial_number                    =      LNA.LNA_Identification(_LNA_number_1)
+Status, VNA_1.temperature_check_out,  _port, _inuse, VNA_1.serial_number                    =      LNA.LNA_Identification(_LNA_number)
+
+status, _file_name_for_saving_SC, _file_name_for_saving_S2P,_data                           =      GAIN._S_BAND_SPARAMETER(_LNA_number)
+### Temporary
 
 #_NF_passed_status,_file_name_NF                                                            =      NF._NOISE_FIGURE_MEASURMENTS(0, 0, 0, 0, 0, 0, 0, _LNA_number_1 )
 #_SPURIOUS_passed_status, _file_name_Spurious                                               =      SP._SPURIOUS_MEASURMENTS(pdiv,ref,V_bw,R_bw,avg,Stop_freq,Start_freq,C_freq,points,offset,_lim, 2)
 
 VNA_1.Spurious              = _file_name_Spurious
-VNA_1.adress_hexadecimal    = _Adr_LNA[_LNA_number_1]
+VNA_1.adress_hexadecimal    = _Adr_LNA[_LNA_number-1]
 VNA_1.S2P                   = _file_name_for_saving_S2P
 VNA_1.Gain_SC               = _file_name_for_saving_SC # GAIN UP TO SCREENSHOT
 VNA_1.Gain                  = _data
