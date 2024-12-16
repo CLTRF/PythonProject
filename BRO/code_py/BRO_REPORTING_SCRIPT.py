@@ -54,7 +54,7 @@ Phase_Reference =   1
 #else:
 #    workbook = Workbook()
 
-_LNA_number = 1
+_LNA_number = 0
 
 warehouse_directory             =   'H:\\DATA_WARE_HOUSE'
 if not os.path.exists(warehouse_directory):
@@ -112,7 +112,7 @@ if not os.path.exists('H:\\DATA_WARE_HOUSE' + '\\' + 'data\\'):
 
 __S_PARAMETER_DISPLAY       =   'S22'
 VNA_TEMP.WorkingDirectory   =   'H:\\DATA_WARE_HOUSE' + '\\' + 'data\\'+__S_PARAMETER_DISPLAY
-VNA_TEMP.save('object_name+serial_number'+__S_PARAMETER_DISPLAY,"smith",__S_PARAMETER_DISPLAY)
+#VNA_TEMP.save('object_name+serial_number'+__S_PARAMETER_DISPLAY,"smith",__S_PARAMETER_DISPLAY)
 VNA_TEMP.save('object_name+serial_number'+__S_PARAMETER_DISPLAY,"angle_unwrapped",__S_PARAMETER_DISPLAY)
 VNA_TEMP.save('object_name+serial_number'+__S_PARAMETER_DISPLAY,"magnitude_dB",__S_PARAMETER_DISPLAY)
 VNA_TEMP.save('object_name+serial_number'+__S_PARAMETER_DISPLAY,"angle_with_rotations",__S_PARAMETER_DISPLAY)
@@ -120,15 +120,15 @@ sleep(1)
 
 __S_PARAMETER_DISPLAY       =   'S11'
 VNA_TEMP.WorkingDirectory   =   'H:\\DATA_WARE_HOUSE' + '\\' + 'data\\'+__S_PARAMETER_DISPLAY
-VNA_TEMP.save('object_name+serial_number'+__S_PARAMETER_DISPLAY,"smith",__S_PARAMETER_DISPLAY)
 VNA_TEMP.save('object_name+serial_number'+__S_PARAMETER_DISPLAY,"angle_unwrapped",__S_PARAMETER_DISPLAY)
 VNA_TEMP.save('object_name+serial_number'+__S_PARAMETER_DISPLAY,"magnitude_dB",__S_PARAMETER_DISPLAY)
 VNA_TEMP.save('object_name+serial_number'+__S_PARAMETER_DISPLAY,"angle_with_rotations",__S_PARAMETER_DISPLAY)
+#VNA_TEMP.save('object_name+serial_number'+__S_PARAMETER_DISPLAY,"smith",__S_PARAMETER_DISPLAY)
 sleep(1)
 
 __S_PARAMETER_DISPLAY       =   'S12'
 VNA_TEMP.WorkingDirectory   =   'H:\\DATA_WARE_HOUSE' + '\\' + 'data\\'+__S_PARAMETER_DISPLAY
-VNA_TEMP.save('object_name+serial_number'+__S_PARAMETER_DISPLAY,"smith",__S_PARAMETER_DISPLAY)
+#VNA_TEMP.save('object_name+serial_number'+__S_PARAMETER_DISPLAY,"smith",__S_PARAMETER_DISPLAY)
 VNA_TEMP.save('object_name+serial_number'+__S_PARAMETER_DISPLAY,"angle_unwrapped",__S_PARAMETER_DISPLAY)
 VNA_TEMP.save('object_name+serial_number'+__S_PARAMETER_DISPLAY,"magnitude_dB",__S_PARAMETER_DISPLAY)
 VNA_TEMP.save('object_name+serial_number'+__S_PARAMETER_DISPLAY,"angle_with_rotations",__S_PARAMETER_DISPLAY)

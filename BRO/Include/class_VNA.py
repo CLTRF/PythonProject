@@ -161,6 +161,19 @@ class VNA():
 
         # ring_slot.s21.plot_s_db()
         # ring_slot.s22.plot_s_deg_unwrap(m=0,n=0, label='S22 Phase unwrap')
+        
+        if (type_of_plot == "angle_unwrapped") and (s_param == 'S11'):
+            with plt.style.context('grayscale'):
+                # ring_slot.plot_s_deg()
+                _device.frequency.unit = 'ghz'
+                plt.legend(loc=5)
+                _device.s11.plot_s_deg_unwrap(m=0, n=0, label='')
+                plotting.add_markers_to_lines()
+                plt.legend('')  # have to re-generate legend
+                plt.title(legend+' Phase unwrap')
+                plt.grid()
+                save_all_figs(self.WorkingDirectory, format=['png', 'eps', 'pdf'])
+                plt.clf()
 
         if (type_of_plot == "angle_unwrapped") and (s_param == 'All_Phase_United'):
             with plt.style.context('grayscale'):
@@ -171,19 +184,6 @@ class VNA():
                 plotting.add_markers_to_lines()
                 plt.legend('Phase Unwrap for LNA1, LNA2, LNA3, LNA4')  # have to re-generate legend
                 plt.title(legend + ' Phase unwrap')
-                plt.grid()
-                save_all_figs(self.WorkingDirectory, format=['png', 'eps', 'pdf'])
-                plt.clf()
-
-        if (type_of_plot == "angle_unwrapped") and (s_param == 'S11'):
-            with plt.style.context('grayscale'):
-                # ring_slot.plot_s_deg()
-                _device.frequency.unit = 'ghz'
-                plt.legend(loc=5)
-                _device.s11.plot_s_deg_unwrap(m=0, n=0, label='')
-                plotting.add_markers_to_lines()
-                plt.legend('')  # have to re-generate legend
-                plt.title(legend+' Phase unwrap')
                 plt.grid()
                 save_all_figs(self.WorkingDirectory, format=['png', 'eps', 'pdf'])
                 plt.clf()
@@ -216,12 +216,12 @@ class VNA():
 
         if (type_of_plot == "smith") and (s_param == 'S11'):
             # prepare figure
-            fig, ax = plt.subplots(1, 1, figsize=(8, 8))
+            fig_1, ax_1 = plt.subplots(1, 1, figsize=(8, 8))
             plt.legend(loc=5)
             plt.title(legend + ' Smith')
             background = plt.imread('C:/Users/CLT/PycharmProjects/PythonProject/BRO/Include/Smith_Chart.png')
     # tweak background position
-            ax.imshow(background, extent=[-1.185, 1.14, -1.13, 1.155])
+            ax_1.imshow(background, extent=[-1.185, 1.14, -1.13, 1.155])
             _device.s11.plot_s_smith()
             save_all_figs(self.WorkingDirectory, format=['png', 'eps', 'pdf'])
             #plt.show()
@@ -268,12 +268,12 @@ class VNA():
 
         if (type_of_plot == "smith") and (s_param == 'S22'):
             # prepare figure
-            fig, ax = plt.subplots(1, 1, figsize=(8, 8))
+            fig_2, ax_2 = plt.subplots(1, 1, figsize=(8, 8))
             plt.legend(loc=5)
             plt.title(legend + ' Smith')
             background = plt.imread('C:/Users/CLT/PycharmProjects/PythonProject/BRO/Include/Smith_Chart.png')
     # tweak background position
-            ax.imshow(background, extent=[-1.185, 1.14, -1.13, 1.155])
+            ax_2.imshow(background, extent=[-1.185, 1.14, -1.13, 1.155])
             _device.s22.plot_s_smith()
             save_all_figs(self.WorkingDirectory, format=['png', 'eps', 'pdf'])
             plt.clf()
@@ -319,12 +319,12 @@ class VNA():
 
         if (type_of_plot == "smith") and (s_param == 'S21'):
             # prepare figure
-            fig, ax = plt.subplots(1, 1, figsize=(8, 8))
+            fig_3, ax_3 = plt.subplots(1, 1, figsize=(8, 8))
             plt.legend(loc=5)
             plt.title(legend + ' Smith')
             background = plt.imread('C:/Users/CLT/PycharmProjects/PythonProject/BRO/Include/Smith_Chart.png')
     # tweak background position
-            ax.imshow(background, extent=[-1.185, 1.14, -1.13, 1.155])
+            ax_3.imshow(background, extent=[-1.185, 1.14, -1.13, 1.155])
             _device.s21.plot_s_smith()
             save_all_figs(self.WorkingDirectory, format=['png', 'eps', 'pdf'])
             #plt.show()
@@ -371,12 +371,12 @@ class VNA():
 
         if (type_of_plot == "smith") and (s_param == 'S12'):
             # prepare figure
-            fig, ax = plt.subplots(1, 1, figsize=(8, 8))
+            fig_4, ax_4 = plt.subplots(1, 1, figsize=(8, 8))
             plt.legend(loc=5)
             plt.title(legend + ' Smith')
             background = plt.imread('C:/Users/CLT/PycharmProjects/PythonProject/BRO/Include/Smith_Chart.png')
     # tweak background position
-            ax.imshow(background, extent=[-1.185, 1.14, -1.13, 1.155])
+            ax_4.imshow(background, extent=[-1.185, 1.14, -1.13, 1.155])
             _device.s12.plot_s_smith()
             save_all_figs(self.WorkingDirectory, format=['png', 'eps', 'pdf'])
             #plt.show()
@@ -423,12 +423,12 @@ class VNA():
 
         if (type_of_plot == "smith") and (s_param == 'ALL_UNITED'):
             # prepare figure
-            fig, ax = plt.subplots(1, 1, figsize=(8, 8))
+            fig_5, ax_5 = plt.subplots(1, 1, figsize=(8, 8))
             plt.legend(loc=5)
             plt.title(legend + ' Smith')
             background = plt.imread('C:/Users/CLT/PycharmProjects/PythonProject/BRO/Include/Smith_Chart.png')
     # tweak background position
-            ax.imshow(background, extent=[-1.185, 1.14, -1.13, 1.155])
+            ax_5.imshow(background, extent=[-1.185, 1.14, -1.13, 1.155])
             _device.s12.plot_s_smith()
             save_all_figs(self.WorkingDirectory, format=['png', 'eps', 'pdf'])
             #plt.show()

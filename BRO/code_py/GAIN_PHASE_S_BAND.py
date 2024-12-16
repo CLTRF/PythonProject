@@ -134,7 +134,7 @@ def Plot_and_Save_Delta_Phase(Frequency_Vector, Phase_Table, Index_Ref, File_nam
 
     return fig
 
-def _S_BAND_SPARAMETER(_LNA_no):
+def _S_BAND_SPARAMETER(_LNA_no, _Serial_Number):
 
     import sys,os
 
@@ -160,7 +160,7 @@ def _S_BAND_SPARAMETER(_LNA_no):
     if not os.path.exists('H:\\DATA_WARE_HOUSE' + '\\' + 'data\\'):
         os.makedirs('H:\\DATA_WARE_HOUSE' + '\\' + 'data\\')
 
-    _str_IP_vector_analyzer = "10.0.8.72"
+    _str_IP_vector_analyzer = "10.0.8.147"
     _ZNB20=network_analyzer.RohdeSchwarzZNB8(_str_IP_vector_analyzer)
 
     time.sleep(5)
@@ -168,8 +168,8 @@ def _S_BAND_SPARAMETER(_LNA_no):
     _now_string = _now.strftime("%d%m%y_%H%M%S")
 
     if (_LNA_no > 0):
-        _file_name_for_saving_sc = warehouse_file_name + 'data' + "\\" + "LNA" + str(_LNA_no) + "\\"+ "LNA"+str(_LNA_no)+"_" + _now_string +"_Gain_"+"Screenshot.png"
-        _file_name_for_saving_S2P = warehouse_file_name + 'data' + "\\" + "LNA" + str(_LNA_no) + "\\" +"LNA"+str(_LNA_no)+"_" + _now_string +"Gain.s2p"
+        _file_name_for_saving_sc = warehouse_file_name + 'data' + "\\" + "LNA" + str(_LNA_no) + '\\'+'SN'+str(_Serial_Number)+ "\\" + "LNA"+str(_LNA_no)+"_" + _now_string +"_Gain_"+"Screenshot.png"
+        _file_name_for_saving_S2P = warehouse_file_name + 'data' + "\\" + "LNA" + str(_LNA_no) + "\\"+'SN'+str(_Serial_Number)+ "\\" +"LNA"+str(_LNA_no)+"_" + _now_string +"Gain.s2p"
     else:
         _file_name_for_saving_sc = warehouse_file_name + 'data' + "\\" + "CAL" + "\\" + "LNA" + str(
             _LNA_no) + "_" + _now_string + "_Gain_" + "Screenshot.png"

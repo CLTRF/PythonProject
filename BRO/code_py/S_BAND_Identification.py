@@ -50,13 +50,13 @@ def LNA_Identification(lna_no):
         data_out = array('B', [0, 0])
 
         if lna_no==1:
-            addr=0x4B #lna #1
+            addr=0x49 #lna #1
         elif lna_no==2:
-            addr=0x4B #lna #2
+            addr=0x4A #lna #2
         elif lna_no==3:
             addr=0x4B #lna #3
         elif lna_no==4:
-            addr=0x4B #lna #4
+            addr=0x4C #lna #4
 
 # Configure I/O expander lines as outputs
 
