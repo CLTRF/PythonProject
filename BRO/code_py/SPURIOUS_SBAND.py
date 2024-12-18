@@ -1,4 +1,4 @@
-def _SPURIOUS_MEASURMENTS(pdiv,ref,V_bw,R_bw,avg,Stop_freq,Start_freq,C_freq,points,offset,lim,_LNA_nmuber):
+def _SPURIOUS_MEASURMENTS(pdiv,ref,V_bw,R_bw,avg,Stop_freq,Start_freq,C_freq,points,offset,lim,_LNA_number,_serial_number):
 
     """
    this function measures Noise Figure of the BRO S-BAND LNA using N9000A Spectrum Analyzer.
@@ -80,7 +80,8 @@ def _SPURIOUS_MEASURMENTS(pdiv,ref,V_bw,R_bw,avg,Stop_freq,Start_freq,C_freq,poi
     #_now_string_time = _now_time.strftime("%H%M%S")
     #_now_string_date = _now_string_date + _now_string_time
 
-    _file_name_for_saving = "F:\\LNA"+str(_LNA_nmuber)+"\\" + _now_string +"\\Spurious\\"+"Screenshot.png"
+    #_file_name_for_saving = "H:\\DATA_WARE_HOUSE\\data\\"+"LNA"+str(_LNA_number)+"SN"+str(_serial_number)+"\\" + "_now_string_Spurious+Screenshot.png"
+    _file_name_for_saving = "F:\\LNA" + str(_LNA_number) + "\\" + _now_string + "\\Spurious\\" + "Screenshot_LNA"+str(_LNA_number)+"_"+str(_serial_number)+".png"
     _N9000a.save_screenshot_png(_file_name_for_saving)
 
     ## _N9000a.save_screenshot_png('F:/FOU/')

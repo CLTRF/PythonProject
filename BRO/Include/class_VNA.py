@@ -154,22 +154,22 @@ class VNA():
         #device.s22 = _device_3.s21
         #device.s21 = _device_4.s21
 
-        Phase_LNA_1_table = _device_1.s21
-        Phase_LNA_2_table = _device_2.s21
-        Phase_LNA_3_table = _device_3.s21
-        Phase_LNA_4_table = _device_4.s21
+        Gain_LNA_1_table = _device_1.s21
+        Gain_LNA_2_table = _device_2.s21
+        Gain_LNA_3_table = _device_3.s21
+        Gain_LNA_4_table = _device_4.s21
 
-        Phase_LNA_1 = Phase_LNA_1_table[:,1,0]
-        Phase_LNA_2 = Phase_LNA_2_table[:,1,0]
-        Phase_LNA_3 = Phase_LNA_3_table[:,1,0]
-        Phase_LNA_4 = Phase_LNA_4_table[:,1,0]
+        Gain_LNA_1 = Gain_LNA_1_table[:,1,0]
+        Gain_LNA_2 = Gain_LNA_2_table[:,1,0]
+        Gain_LNA_3 = Gain_LNA_3_table[:,1,0]
+        Gain_LNA_4 = Gain_LNA_4_table[:,1,0]
 
         #device.s11 = (_device_1.s21)*1
         #device.s12 = (_device_2.s21)*1
         #device.s22 = (_device_3.s21)*1
         #device.s21 = (_device_4.s21)*1
 
-        return Phase_LNA_1, Phase_LNA_2, Phase_LNA_3, Phase_LNA_4, _device_1.frequency.f
+        return Gain_LNA_1, Gain_LNA_2, Gain_LNA_3, Gain_LNA_4, _device_1.frequency.f
 
         with plt.style.context('grayscale'):
             # ring_slot.plot_s_deg()

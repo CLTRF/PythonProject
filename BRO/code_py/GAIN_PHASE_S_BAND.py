@@ -179,14 +179,16 @@ def Plot_and_Save_Delta_Phase(Frequency_Vector, Phase_Table, Index_Ref, File_nam
 
     plt.grid(True)
 
-
     plt.legend([_item_1_name,_item_2_name, _item_3_name, _item_4_name,'upper limit','lower limit'], loc="upper left")
 
     plt.savefig(File_name_fig+_item_1_name+_item_2_name+_item_3_name+_item_4_name+'.png')
     plt.savefig(File_name_fig+_item_1_name+_item_2_name+_item_3_name+_item_4_name+'.pdf')
     plt.savefig(File_name_fig+_item_1_name+_item_2_name+_item_3_name+_item_4_name+'.eps')
 
+    plt.clf()
+
     return fig
+
 
 def Plot_and_Save_Magnitude_Phase(Frequency_Vector, Phase_Table, File_name_fig, _item_1_name,_item_2_name, _item_3_name, _item_4_name):
     '''
@@ -249,6 +251,7 @@ def Plot_and_Save_Magnitude_Phase(Frequency_Vector, Phase_Table, File_name_fig, 
     plt.savefig(File_name_fig+_item_1_name+_item_2_name+_item_3_name+_item_4_name+'.eps')
 
     ## plt.show()
+    plt.clf()
 
     return fig
 
@@ -289,15 +292,21 @@ def _S_BAND_SPARAMETER(_LNA_no, _Serial_Number,  _str_IP_vector_analyzer):
     if (_LNA_no > 0):
         _file_name_for_saving_sc = warehouse_file_name + 'data' + "\\" + "LNA" + str(_LNA_no) + '\\'+'SN'+str(_Serial_Number)+ "\\" + "LNA"+str(_LNA_no)+"_" + _now_string +"_Gain_"+"Screenshot.png"
         _file_name_for_saving_S2P = warehouse_file_name + 'data' + "\\" + "LNA" + str(_LNA_no) + "\\"+'SN'+str(_Serial_Number)+ "\\" +"LNA"+str(_LNA_no)+"_" + _now_string +"Gain.s2p"
+        _file_name_for_saving_CSV = warehouse_file_name + 'data' + "\\" + "LNA" + str(_LNA_no) + "\\" + 'SN' + str(_Serial_Number) + "\\" + "LNA" + str(_LNA_no) + "_" + _now_string + "Gain.csv"
     else:
         _file_name_for_saving_sc = warehouse_file_name + 'data' + "\\" + "CAL" + "\\" + "LNA" + str(
             _LNA_no) + "_" + _now_string + "_Gain_" + "Screenshot.png"
         _file_name_for_saving_S2P = warehouse_file_name + 'data' + "\\" + "CAL" + "\\" + "LNA" + str(
             _LNA_no) + "_" + _now_string + "Gain.s2p"
+        _file_name_for_saving_CSV = warehouse_file_name + 'data' + "\\" + "CAL" + "\\" + "LNA" + str(
+                _LNA_no) + "_" + _now_string + "Gain.csv"
 
 
     _ZNB20.save_screenshot_png(_file_name_for_saving_sc)
     _data = _ZNB20.save_touchstone(_file_name_for_saving_S2P, trace =1 )
+    _data1 = _ZNB20.save_csv(_file_name_for_saving_CSV, trace =1 )
+
+    #_ZNB20.save_csv(_file_name_for_saving_CSV, trace=1)
 
     return (True, _file_name_for_saving_sc,_file_name_for_saving_S2P,_data)
 
