@@ -35,10 +35,41 @@ def _SPURIOUS_MEASURMENTS(pdiv,ref,V_bw,R_bw,avg,Stop_freq,Start_freq,C_freq,poi
     from gs_instrument import CsvWriter
 
 ## Test Spec
-    _str_freq_MHz   =   2000
-    _stop_freq_MHz  =   3000
+
+
+#    _str_freq_MHz   =   2000
+#    _stop_freq_MHz  =   3000
+#    _IF_BW_MHz      =   2
+#    _Nb_Points_Sc   =   40
+#    _ENR_dB         =   6
+#   _Frequency_Hz           =   1000000000.0 # 1 GHz
+#    _Span_Hz                =   25000000.0 #25 MHz
+#    _Rbw_Hz                 =   10
+#    _Plevel_dB              =   10
+#    _Sweep_points           =   1001
+#    _Attenuation_dB         =   0
+
+    pdiv = 10
+    ref = 0
+    V_bw = 0
+    R_bw = 30
+    avg = 10
+    Stop_freq = 15000
+    Start_freq = 2000
+    C_freq = 5000
+    points = 801
+    offset = -50
+    _lim = 0
+    _data = []
+    _Detector_Positive_Peak =   True
+    _Path_to_screen_shot    =   'F:\\'
+    _file_name              =   'LNA1'
+    _format_file_screen     =   'PNG'
+
+    _str_freq_MHz   =   Start_freq
+    _stop_freq_MHz  =   Stop_freq
     _IF_BW_MHz      =   2
-    _Nb_Points_Sc   =   40
+    _Nb_Points_Sc   =   points
     _ENR_dB         =   6
     _Frequency_Hz           =   1000000000.0 # 1 GHz
     _Span_Hz                =   25000000.0 #25 MHz
@@ -46,27 +77,7 @@ def _SPURIOUS_MEASURMENTS(pdiv,ref,V_bw,R_bw,avg,Stop_freq,Start_freq,C_freq,poi
     _Plevel_dB              =   10
     _Sweep_points           =   1001
     _Attenuation_dB         =   0
-    _Detector_Positive_Peak =   True
-    _Path_to_screen_shot    =   'F:\\'
-    _file_name              =   'LNA1'
-    _format_file_screen     =   'PNG'
 
-    #required setup
-    #mcu
-    #spectrum analyzer N9000A
-    #if generator
-
-    #P47-60
-    #RF freq 8250 fixed
-    #IF power fixed
-    #modcon vary
-    #plot spur levels as time20.0	30.0
-    #
-    #20.0	30.0
-    #P47-50
-    #RF freq 8250 fixed
-    #IF power fixed
-    #plot spur levels as time
 
     # local variables Initialisation
     _str_IP_spectrum_analyzer = "10.0.9.212"
