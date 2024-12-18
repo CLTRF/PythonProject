@@ -43,7 +43,8 @@ _lim        = 0
 
 ### references given on the package from production
 _LNA_number = 4
-_LNA_serial_number = 108
+_LNA_serial_number = 107
+_str_IP_vector_analyzer = "10.0.8.44"
 
 if (_LNA_number == 0):
     object_name = 'cal_kit'
@@ -118,7 +119,7 @@ else:
 if (_LNA_number > 0):
     Status, VNA_1.temperature_check_out,  _port, _inuse, VNA_1.serial_number                    =      LNA.LNA_Identification(_LNA_number)
 
-status, _file_name_for_saving_SC, _file_name_for_saving_S2P,_data                           =      GAIN._S_BAND_SPARAMETER(_LNA_number, _LNA_serial_number)
+status, _file_name_for_saving_SC, _file_name_for_saving_S2P,_data                           =      GAIN._S_BAND_SPARAMETER(_LNA_number, _LNA_serial_number, _str_IP_vector_analyzer)
 ### Temporary
 
 #_NF_passed_status,_file_name_NF                                                            =      NF._NOISE_FIGURE_MEASURMENTS(0, 0, 0, 0, 0, 0, 0, _LNA_number_1 )
