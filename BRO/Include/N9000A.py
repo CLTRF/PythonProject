@@ -902,6 +902,7 @@ class N9000:
         if len(xx)>0:
             self.Gain=[float(x) for x in xx.split(',')]
         return self.NF, self.Gain #return in MHz
+
     def Spurious_BRO(self,pdiv,ref,V_bw,R_bw,avg,Stop_freq,Start_freq,C_freq,points,offset): #spurious
         self.N9000a.write("*RST\n")
         sa = "INST:NSEL 1\n"

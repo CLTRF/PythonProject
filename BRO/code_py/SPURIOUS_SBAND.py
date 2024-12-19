@@ -1,4 +1,4 @@
-def _SPURIOUS_MEASURMENTS(pdiv,ref,V_bw,R_bw,avg,Stop_freq,Start_freq,C_freq,points,offset,lim,_LNA_number,_serial_number):
+def _SPURIOUS_MEASURMENTS(pdiv,ref,V_bw,R_bw,avg,Stop_freq,Start_freq,C_freq,points,offset,lim,_LNA_number,_serial_number,_str_IP_spectrum_analyzer):
 
     """
    this function measures Noise Figure of the BRO S-BAND LNA using N9000A Spectrum Analyzer.
@@ -59,7 +59,7 @@ def _SPURIOUS_MEASURMENTS(pdiv,ref,V_bw,R_bw,avg,Stop_freq,Start_freq,C_freq,poi
     C_freq = 5000
     points = 801
     offset = -50
-    _lim = 0
+    _lim = -50
     _data = []
     _Detector_Positive_Peak =   True
     _Path_to_screen_shot    =   'F:\\'
@@ -82,8 +82,13 @@ def _SPURIOUS_MEASURMENTS(pdiv,ref,V_bw,R_bw,avg,Stop_freq,Start_freq,C_freq,poi
     # local variables Initialisation
     _str_IP_spectrum_analyzer = "10.0.9.212"
     _N9000a=spectrum_analyzer.KeysightCXA(_str_IP_spectrum_analyzer)
+    _N9000a.spur_subband_BRO(offset)
+    _N9000a.Spurious_BRO(pdiv, ref, V_bw, R_bw, avg, Stop_freq, Start_freq, C_freq, points, offset)
 
-    _N9000a.Spurious(pdiv,ref,V_bw,R_bw,avg,Stop_freq,Start_freq,C_freq,points,offset,lim)
+    #_SPURIOUS_passed_status, _file_name_Spurious = Spurious_BRO(self, pdiv, ref, V_bw, R_bw, avg, Stop_freq, Start_freq,
+    #                                                            C_freq, points, offset)
+
+    #############################################################
 
     time.sleep(5)
     _now = datetime.datetime.now()
