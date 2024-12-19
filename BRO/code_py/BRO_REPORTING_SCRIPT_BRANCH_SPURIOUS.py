@@ -44,7 +44,7 @@ VNA_4           =   vna.VNA()
 VNA_TEMP        =   vna.VNA()
 VNA_TEMP_CONCAT =   vna.VNA()
 UW_Phase_Table  =   []
-Phase_Reference =   1
+Phase_Reference =   0
 
 
 ### Provision to Excel Generation file
@@ -93,7 +93,8 @@ else:
 
 warehouse_file_name, warehouse_sub_directory = GAIN.build_file_name(_LNA_number, _LNA_serial_number)
 print('loading object from:', warehouse_file_name)
-VNA_TEMP = GAIN.read_pkl_object(warehouse_file_name)
+quick_fix_name = warehouse_sub_directory+"\\LNA"+str(_LNA_number)+"_S2P.s2p"
+VNA_TEMP = GAIN.read_pkl_object(warehouse_file_name, quick_fix_name)
 
 
 VNA_TEMP_CONCAT = VNA_TEMP
@@ -107,7 +108,7 @@ P1: INPUT
 P2: OUTPUT
 S21 = GAIN
 '''
-_BASIC_PROCESSING = False
+_BASIC_PROCESSING = True
 
 if (_BASIC_PROCESSING == True):
 
@@ -193,35 +194,36 @@ else:
 #                    [UW_Phase_LNA_1, UW_Phase_LNA_2, UW_Phase_LNA_3, UW_Phase_LNA_4,
 #                     Frequency_Vector] = VNA_TEMP_CONCAT.concat_gain(list_of_objects[0], list_of_objects[1],
 #                                                                     list_of_objects[2], list_of_objects[3], "gain")
-#
-#                    UW_Phase_Table.append(UW_Phase_LNA_1)
-#                    UW_Phase_Table.append(UW_Phase_LNA_2)
-#                    UW_Phase_Table.append(UW_Phase_LNA_3)
-#                    UW_Phase_Table.append(UW_Phase_LNA_4)
-
-#                    Item_name_1 = "LNA"+str(_LNA_number_1) + "_"+ "SN"+ str(_LNA_serial_number_1)
-#                    Item_name_2 = "LNA"+str(_LNA_number_2) + "_"+ "SN"+ str(_LNA_serial_number_2)
-#                    Item_name_3 = "LNA"+str(_LNA_number_3) + "_"+ "SN"+ str(_LNA_serial_number_3)
-#                    Item_name_4 = "LNA"+str(_LNA_number_4) + "_"+ "SN"+ str(_LNA_serial_number_4)
-                    ##Status = GAIN.Plot_and_Save_Delta_Phase(Frequency_Vector, UW_Phase_Table, Phase_Reference, VNA_TEMP.WorkingDirectory+'\\Phase_Diff_deg',Item_name_1,Item_name_2,Item_name_3,Item_name_4,+10, -10)
-                    #Status = GAIN.Plot_and_Save_Magnitude_Phase(Frequency_Vector, UW_Phase_Table, VNA_TEMP.WorkingDirectory+'\\PhaseMag\\'+'\\Phase_Magnitude_deg',Item_name_1,Item_name_2,Item_name_3,Item_name_4 )
-
-
-                    ### Gain comparison
-
 
                     UW_Phase_Table.append(UW_Phase_LNA_1)
                     UW_Phase_Table.append(UW_Phase_LNA_2)
                     UW_Phase_Table.append(UW_Phase_LNA_3)
                     UW_Phase_Table.append(UW_Phase_LNA_4)
 
-                    Item_name_1 = "LNA" + str(_LNA_number_1) + "_" + "SN" + str(_LNA_serial_number_1)
-                    Item_name_2 = "LNA" + str(_LNA_number_2) + "_" + "SN" + str(_LNA_serial_number_2)
-                    Item_name_3 = "LNA" + str(_LNA_number_3) + "_" + "SN" + str(_LNA_serial_number_3)
-                    Item_name_4 = "LNA" + str(_LNA_number_4) + "_" + "SN" + str(_LNA_serial_number_4)
-                    Status = GAIN.Plot_and_Save_Delta_Phase(Frequency_Vector, UW_Phase_Table, Phase_Reference,
-                                                            VNA_TEMP.WorkingDirectory + '\\Phase_Diff_deg', Item_name_1,
-                                                            Item_name_2, Item_name_3, Item_name_4, +10, -10)
+                    Item_name_1 = "LNA"+str(_LNA_number_1) + "_"+ "SN"+ str(_LNA_serial_number_1)
+                    Item_name_2 = "LNA"+str(_LNA_number_2) + "_"+ "SN"+ str(_LNA_serial_number_2)
+                    Item_name_3 = "LNA"+str(_LNA_number_3) + "_"+ "SN"+ str(_LNA_serial_number_3)
+                    Item_name_4 = "LNA"+str(_LNA_number_4) + "_"+ "SN"+ str(_LNA_serial_number_4)
+                    Status = GAIN.Plot_and_Save_Delta_Phase(Frequency_Vector, UW_Phase_Table, Phase_Reference, VNA_TEMP.WorkingDirectory+'\\Phase_Diff_deg',Item_name_1,Item_name_2,Item_name_3,Item_name_4,+10, -10)
+                    Status = GAIN.Plot_and_Save_Magnitude_Phase(Frequency_Vector, UW_Phase_Table, VNA_TEMP.WorkingDirectory+'\\PhaseMag\\'+'\\Phase_Magnitude_deg',Item_name_1,Item_name_2,Item_name_3,Item_name_4 )
+
+
+                    ### Gain comparison
+
+
+                    #UW_Phase_Table.append(UW_Phase_LNA_1)
+                    #UW_Phase_Table.append(UW_Phase_LNA_2)
+                    #UW_Phase_Table.append(UW_Phase_LNA_3)
+                    #UW_Phase_Table.append(UW_Phase_LNA_4)
+
+                    #Item_name_1 = "LNA" + str(_LNA_number_1) + "_" + "SN" + str(_LNA_serial_number_1)
+                    #Item_name_2 = "LNA" + str(_LNA_number_2) + "_" + "SN" + str(_LNA_serial_number_2)
+                    #Item_name_3 = "LNA" + str(_LNA_number_3) + "_" + "SN" + str(_LNA_serial_number_3)
+                    #Item_name_4 = "LNA" + str(_LNA_number_4) + "_" + "SN" + str(_LNA_serial_number_4)
+                    #Status = GAIN.Plot_and_Save_Delta_Gain(Frequency_Vector, UW_Phase_Table, Phase_Reference,
+                    #                                        VNA_TEMP.WorkingDirectory + '\\Gain_Diff_deg', Item_name_1,
+                    #                                        Item_name_2, Item_name_3, Item_name_4, +10, -10)
                     #Status = GAIN.Plot_and_Save_Magnitude_Phase(Frequency_Vector, UW_Phase_Table,
                     #                                            VNA_TEMP.WorkingDirectory + '\\Phase_Magnitude_deg',
                     #                                            Item_name_1, Item_name_2, Item_name_3, Item_name_4)
+

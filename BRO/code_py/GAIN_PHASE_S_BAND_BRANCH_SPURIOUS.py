@@ -47,10 +47,11 @@ def build_file_name(_LNA_number, _LNA_serial_number):
     return warehouse_file_name, warehouse_sub_directory
 
 
-def read_pkl_object( file_name):
+def read_pkl_object( file_name, quick_fix_name):
     VNA_TEMP = vna.VNA()
     with open(file_name, 'rb') as input:
         VNA_TEMP = pickle.load(input)
+        VNA_TEMP.S2P  =   [quick_fix_name]
     return VNA_TEMP
 
 def Plot_and_Save_Delta_Gain(Frequency_Vector, Phase_Table, Index_Ref, File_name_fig, _item_1_name,_item_2_name, _item_3_name, _item_4_name, limit_positive, limit_negative):
@@ -162,8 +163,8 @@ def Plot_and_Save_Delta_Phase(Frequency_Vector, Phase_Table, Index_Ref, File_nam
     data_to_plot = []
     plot_axis = Frequency_Vector
     fig = plt.figure()
-    plt.title('Phase unwrap differences_reference_LNA:'+str(Index_Ref+1))
-    plt.legend('Phase unwrap differences_reference_LNA:'+str(Index_Ref+1))
+    plt.title('Phase unwrap differences_reference_LNA:'+str(Index_Ref))
+    plt.legend('Phase unwrap differences_reference_LNA:'+str(Index_Ref))
     plt.xlabel('Frequency in GHz')
     plt.ylabel('Delta angle in degrees')
 
