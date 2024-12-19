@@ -11,6 +11,24 @@ import numpy as np
 import matplotlib.pyplot as plt
 import SMF100
 
+import sys, os
+
+#from Tools.scripts.patchcheck import status
+#from pyvisa.constants import VI_ERROR_BERR, VI_ATTR_WIN_BASE_ADDR_32, VI_ATTR_WIN_BASE_ADDR_64
+
+sys.path.insert(1, 'C:/Users/CLT/PycharmProjects/PythonProject/BRO/Include')
+import time
+import pickle
+### comming from Pickles module
+import lna_aadetect as aa_function
+import S_BAND_Identification as LNA
+import NF_SBAND as NF
+import GAIN_PHASE_S_BAND as GAIN
+import SPURIOUS_SBAND as SP
+import class_VNA as vna
+from datetime import datetime
+
+
 #########################################################33
 #main program
 ####################################3
