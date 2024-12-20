@@ -46,8 +46,8 @@ _lim        =   0
 _data       =   []
 
 ### references given on the package from production
-_LNA_number = 4
-_LNA_serial_number = 108
+_LNA_number = 1
+_LNA_serial_number = 94
 _str_IP_vector_analyzer = "10.0.8.30"
 
 if (_LNA_number == 0):
@@ -112,6 +112,7 @@ VNA_1.Spurious = []
 VNA_1.Gain = []
 VNA_1.Phase = []
 
+
 if (_LNA_number == 0):
     if not os.path.exists('H:\\DATA_WARE_HOUSE' + '\\' + 'data\\'+'SN'+str(_LNA_serial_number)):
         os.makedirs('H:\\DATA_WARE_HOUSE' + '\\' + 'data\\'+'SN'+str(_LNA_serial_number))
@@ -119,14 +120,15 @@ else:
     if not os.path.exists('H:\\DATA_WARE_HOUSE' + '\\' + 'data\\LNA'+str(_LNA_number)+'\\'+'SN'+str(_LNA_serial_number)):
         os.makedirs('H:\\DATA_WARE_HOUSE' + '\\' + 'data\\LNA'+str(_LNA_number)+'\\'+'SN'+str(_LNA_serial_number))
 
-#status                                                                                      =      GAIN.save_to_excel()
-if (_LNA_number > 0):
-    Status, VNA_1.temperature_check_out,  _port, _inuse, VNA_1.serial_number                    =      LNA.LNA_Identification(_LNA_number)
+## status 20/12 removing the adress verification
+##if (_LNA_number > 0):
+##    Status, VNA_1.temperature_check_out,  _port, _inuse, VNA_1.serial_number                    =      LNA.LNA_Identification(_LNA_number)
 
-status, _file_name_for_saving_SC, _file_name_for_saving_S2P,_data                               =      GAIN._S_BAND_SPARAMETER(_LNA_number, _LNA_serial_number, _str_IP_vector_analyzer)
+#status, _file_name_for_saving_SC, _file_name_for_saving_S2P,_data                               =      GAIN._S_BAND_SPARAMETER(_LNA_number, _LNA_serial_number, _str_IP_vector_analyzer)
+
 ### Temporary
 
-#_NF_passed_status,_file_name_NF                                                            =      NF._NOISE_FIGURE_MEASURMENTS(0, 0, 0, 0, 0, 0, 0, _LNA_number_1 )
+_NF_passed_status,_file_name_NF                                                            =      NF._NOISE_FIGURE_MEASURMENTS(0, 0, 0, 0, 0, 0, 0, _LNA_number, _LNA_serial_number)
 #_SPURIOUS_passed_status, _file_name_Spurious                                               =      SP._SPURIOUS_MEASURMENTS(pdiv,ref,V_bw,R_bw,avg,Stop_freq,Start_freq,C_freq,points,offset,_lim, _LNA_number, _LNA_serial_number)
 
 VNA_1.Spurious              = _file_name_Spurious
@@ -140,13 +142,4 @@ with open(warehouse_file_name_target, 'wb') as outp:
 outp.close()
 print('Target Object saved')
 
-
-### Trial for reading
-#print('loading object from:', warehouse_file_name_target)
-with open(warehouse_file_name_target, 'rb') as input_1:
-    VNA_2 = pickle.load(input_1)
-    print('Target Object saved')
-    print('ADRESS;', VNA_2.S2P)
-
-print('object saved and verified at:', warehouse_file_name_target)
 print('Ready for reporting')

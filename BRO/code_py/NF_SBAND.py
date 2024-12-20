@@ -1,4 +1,4 @@
-def _NOISE_FIGURE_MEASURMENTS(_str_freq_MHz, _stop_freq_MHz, _IF_BW_MHz, _Nb_Points_Sc, _ENR_dB, _frequency_MHz, _span_MHz, _LNA_no ):
+def _NOISE_FIGURE_MEASURMENTS(_str_freq_MHz, _stop_freq_MHz, _IF_BW_MHz, _Nb_Points_Sc, _ENR_dB, _frequency_MHz, _span_MHz, _LNA_no, _LNA_serial_number):
 
     """
    this function measures Noise Figure of the BRO S-BAND LNA using N9000A Spectrum Analyzer.
@@ -35,8 +35,8 @@ def _NOISE_FIGURE_MEASURMENTS(_str_freq_MHz, _stop_freq_MHz, _IF_BW_MHz, _Nb_Poi
     from gs_instrument import CsvWriter
 
 ## Test Spec
-    _str_freq_MHz   =   2000
-    _stop_freq_MHz  =   3000
+    _str_freq_MHz   =   3000
+    _stop_freq_MHz  =   3100
     _IF_BW_MHz      =   2
     _Nb_Points_Sc   =   40
     _ENR_dB         =   6
@@ -103,35 +103,43 @@ def _NOISE_FIGURE_MEASURMENTS(_str_freq_MHz, _stop_freq_MHz, _IF_BW_MHz, _Nb_Poi
 #            line = raw_input()
 #            break
 
-    print("Connect cable to LNA{0} to Do measurements and hit ready to capture data ".format(_LNA_no))
-    line = input()
-#   while True:
-#       if sys.stdin in select.select([sys.stdin], [], [], 0)[0]:
-#           line = raw_input()
-#           break
+        serial_number_count = 0
 
-    time.sleep(5)
+        for _LNA_level_1 in range(0, 4, 1):
+            for _LNA_level_2 in range(0, 4, 1):
 
-    _now = datetime.datetime.now()
-    _now_string = _now.strftime("%d%m%y_%H%M%S")
-    #_now_string_time = _now_time.strftime("%H%M%S")
-    #_now_string_date = _now_string_date + _now_string_time
+                _LNA_number = _LNA_level_1 + 1
+                _LNA_no = _LNA_number
+                _LNA_serial_number = 93 + serial_number_count
 
-    _file_name_for_saving = "F:\\LNA"+str(_LNA_no)+"\\" + _now_string +"\\NF\\"+"Screenshot.png"
-    _N9000a.save_screenshot_png(_file_name_for_saving)
+
+                serial_number_count+=1
+
+                print("#1.Connect cable to LNA{0} to Do measurements and hit ready to capture data ".format(_LNA_no))
+                line = input()
+                print("#2.Connect cable to LNA{0} to Do measurements and hit ready to capture data ".format(_LNA_no))
+                line = input()
+                #time.sleep(5)
+
+                _now = datetime.datetime.now()
+                _now_string = _now.strftime("%d%m%y_%H%M%S")
+
+                _file_name_for_saving = "F:\\LNA"+str(_LNA_no)+"\\NF\\"+"SN"+str(_LNA_serial_number)+"\\Screenshot.png"
+                ##_file_name_for_saving = "H:\\DATA_WARE_HOUSE\\data\\" + "LNA" + str(_LNA_no) + "\\SN" + str(_LNA_serial_number) + "\\Screenshot.png"
+                print(_file_name_for_saving)
+
+                _N9000a.save_screenshot_png(_file_name_for_saving)
+
+
+                NF, Gain = list(_N9000a.get_NF())
+    #xxx = "F:\\LNA"+str(_LNA_no)+"\\NF\\"+"SN"+str(_LNA_serial_number)+"{0}.csv".format(_LNA_no)
+    ##xxx = "H:\\DATA_WARE_HOUSE\\data\\"+"LNA"+str(_LNA_no)+"\\SN"+str(_LNA_serial_number)+"\\"+"{0}.csv".format(_LNA_no)
+                xxx = "H:\\DATA_WARE_HOUSE\\data\\" + "LNA" + str(_LNA_no) + "\\SN" + str(_LNA_serial_number) + "\\" + "NF.csv".format(_LNA_no)
+                print(xxx)
+                csv_file = open(xxx, mode='w')
+                for i in range(0, len(NF)):
+                    data="{0},{1}\n".format(NF[i],Gain[i])
+                    csv_file.write(data)
+                csv_file.close()
 
     return (True, csv_file)
-
-'''
- _N9000a.copy_picture1("pic{0}".format(_LNA_no))
-    NF,Gain=list(_N9000a.get_NF())
-    xx="{0}.csv".format(_LNA_no)
-    csv_file=open(xx, mode='w')
-    for i in range(0,len(NF)):
-        xxx="{0},{1}\n".format(NF[i],Gain[i])
-        print(xxx)
-        csv_file.write(xxx)
-
-    csv_file.close()
-'''
-
