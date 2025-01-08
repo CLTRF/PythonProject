@@ -30,7 +30,8 @@ def build_file_name(_LNA_number, _LNA_serial_number):
     else:
         # warehouse_sub_directory = warehouse_directory + '\\data\\LNA'+str(_LNA_number)
         warehouse_sub_directory = warehouse_directory + '\\data\\LNA' + str(_LNA_number) + '\\' + 'SN' + str(
-            _LNA_serial_number)
+            _LNA_serial_number) +   '\\RAW_DATA\\'
+
         if not os.path.exists(warehouse_sub_directory):
             os.makedirs(warehouse_sub_directory)
         if not os.path.exists(warehouse_sub_directory):
@@ -164,7 +165,7 @@ def Plot_and_Save_Delta_Phase(Frequency_Vector, Phase_Table, Index_Ref, File_nam
     fig = plt.figure()
     plt.title('Phase unwrap differences_reference_LNA:'+str(Index_Ref+1))
     plt.legend('Phase unwrap differences_reference_LNA:'+str(Index_Ref+1))
-    plt.xlabel('Frequency in GHz')
+    plt.xlabel('Frequency in Hz')
     plt.ylabel('Delta angle in degrees')
 
     #ax1 = fig.add_axes([0.1, 0.1, 0.8, 0.9])
@@ -232,7 +233,7 @@ def Plot_and_Save_Magnitude_Phase(Frequency_Vector, Phase_Table, File_name_fig, 
     data_to_plot = []
     plot_axis = Frequency_Vector
     fig = plt.figure()
-    plt.xlabel('Frequency in GHz')
+    plt.xlabel('Frequency in Hz')
     plt.ylabel('Phase angle in degrees')
 
     #ax1 = fig.add_axes([0.1, 0.1, 0.8, 0.9])
@@ -255,6 +256,70 @@ def Plot_and_Save_Magnitude_Phase(Frequency_Vector, Phase_Table, File_name_fig, 
 
     return fig
 
+def Plot_and_Save_Magnitude_Gain(Frequency_Vector, Phase_Table, File_name_fig, _item_1_name,_item_2_name, _item_3_name, _item_4_name):
+    '''
+     Standard plotting functions for the Unwrap phase object
+
+     Arguments:
+         Phase_Table : numpy type of.
+
+             - 'XZ' = ['theta', [0]] - sweep angle theta at phi 0 degrees.
+             - 'YZ' = ['theta', [90]] - sweep angle theta at phi 90 degrees.
+             - 'XY' = ['phi', [90]] - sweep angle phi at theta 90 degrees.
+
+         xtick_spacing (int): defines the x axis major ticks. Since these plots are angles this\
+             effectively sets the angular resolution of the grid of the plot.
+
+         linear_plot_offset (int): defined the degrees of offset to be applied to the data along\
+             the **X axis** in case of linear plots. This is particular useful for linear plots\
+             of gain in case the antenna primary gain is in the theta=0 degrees direction -\
+             typical patch antenna. Setting this to 180 degrees brings the peak at the center \
+             of the plot.
+
+     Returns:
+         object: returns a handle to the newly created figure. It also outputs the figure in\
+             PDF/SVG and PNG formats at the output folder in the settings.
+     '''
+
+    import sys
+    import os
+    import numpy as np
+    from mpl_toolkits.mplot3d import Axes3D
+    from matplotlib import cm
+    import matplotlib.pyplot as plt
+    from matplotlib.colors import BoundaryNorm
+    from matplotlib.ticker import MaxNLocator
+
+    _Vector_Diff_LNA_1 = Phase_Table[0]
+    _Vector_Diff_LNA_2 = Phase_Table[1]
+    _Vector_Diff_LNA_3 = Phase_Table[2]
+    _Vector_Diff_LNA_4 = Phase_Table[3]
+
+    data_to_plot = []
+    plot_axis = Frequency_Vector
+    fig = plt.figure()
+    plt.xlabel('Frequency in Hz')
+    plt.ylabel('Gain in dB')
+
+    #ax1 = fig.add_axes([0.1, 0.1, 0.8, 0.9])
+
+    plt.plot(plot_axis, _Vector_Diff_LNA_1)
+    plt.plot(plot_axis, _Vector_Diff_LNA_2,)
+    plt.plot(plot_axis, _Vector_Diff_LNA_3,)
+    plt.plot(plot_axis, _Vector_Diff_LNA_4,)
+
+    plt.legend([_item_1_name,_item_2_name, _item_3_name, _item_4_name], loc="lower right")
+
+    plt.grid(True)
+
+    plt.savefig(File_name_fig+_item_1_name+_item_2_name+_item_3_name+_item_4_name+'.png')
+    plt.savefig(File_name_fig+_item_1_name+_item_2_name+_item_3_name+_item_4_name+'.pdf')
+    plt.savefig(File_name_fig+_item_1_name+_item_2_name+_item_3_name+_item_4_name+'.eps')
+
+    ## plt.show()
+    plt.clf()
+
+    return fig
 
 def _S_BAND_SPARAMETER(_LNA_no, _Serial_Number,  _str_IP_vector_analyzer):
 
