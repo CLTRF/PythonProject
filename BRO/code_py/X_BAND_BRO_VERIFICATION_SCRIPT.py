@@ -124,9 +124,9 @@ else:
 
 ## status 20/12 removing the adress verification
 ##if (_LNB_number > 0):
-#Status, VNA_1.temperature_check_out,  _port, _inuse, VNA_1.serial_number                    =      LNA.LNA_Identification(_LNB_number)
+Status, VNA_1.temperature_check_out,  _port, _inuse, VNA_1.serial_number                    =      LNA.LNA_Identification(_LNB_number)
 
-status, _file_name_for_saving_SC, _file_name_for_saving_S2P,_data                               =      GAIN._S_BAND_SPARAMETER(_LNB_number, _LNB_serial_number, _str_IP_vector_analyzer)
+Status, _file_name_for_saving_SC, _file_name_for_saving_S2P,_data                               =      GAIN._S_BAND_SPARAMETER(_LNB_number, _LNB_serial_number, _str_IP_vector_analyzer)
 
 ### Temporary
 

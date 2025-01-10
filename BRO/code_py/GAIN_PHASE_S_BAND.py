@@ -47,6 +47,38 @@ def build_file_name(_LNA_number, _LNA_serial_number):
 
     return warehouse_file_name, warehouse_sub_directory
 
+def build_file_name_LNB(_LNB_number, _Branche_nmuber):
+
+    warehouse_directory = 'H:\\DATA_WARE_HOUSE'
+    if not os.path.exists(warehouse_directory):
+        os.makedirs(warehouse_directory)
+
+    warehouse_sub_directory = warehouse_directory + '\\data'
+    if not os.path.exists(warehouse_sub_directory):
+        os.makedirs(warehouse_sub_directory)
+
+    if (_LNB_number == 0):
+        warehouse_sub_directory = warehouse_directory + '\\data\\CAL'
+        if not os.path.exists(warehouse_sub_directory):
+            os.makedirs(warehouse_sub_directory)
+    else:
+        # warehouse_sub_directory = warehouse_directory + '\\data\\LNA'+str(_LNA_number)
+        warehouse_sub_directory = warehouse_directory + '\\data\\LNB' + str(_LNB_number) + '\\' + 'BRANCHE' + str(_Branche_nmuber) +   '\\RAW_DATA\\'
+
+        if not os.path.exists(warehouse_sub_directory):
+            os.makedirs(warehouse_sub_directory)
+        if not os.path.exists(warehouse_sub_directory):
+            os.makedirs(warehouse_sub_directory)
+
+    if (_LNB_number == 0):
+        object_name = 'cal_kit'
+    else:
+        object_name = 'LNB' + str(_LNB_number)
+
+    warehouse_file_name = warehouse_sub_directory + '\\' + object_name + '.pkl'
+    # warehouse_file_name             =   'H:\DATA_WARE_HOUSE\VNA_calibration.pkl'
+
+    return warehouse_file_name, warehouse_sub_directory
 
 def read_pkl_object( file_name):
     VNA_TEMP = vna.VNA()
