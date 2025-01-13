@@ -152,7 +152,7 @@ def Plot_and_Save_Delta_Gain(Frequency_Vector, Phase_Table, Index_Ref, File_name
     return fig
 
 
-def Plot_and_Save_Delta_Phase(Frequency_Vector, Phase_Table, Index_Ref, File_name_fig, _item_1_name,_item_2_name, _item_3_name, _item_4_name, limit_positive, limit_negative):
+def Plot_and_Save_Delta_Phase(Frequency_Vector, Phase_Table, Index_Ref, File_name_fig, _item_1_name,_item_2_name, _item_3_name, _item_4_name, limit_positive, limit_negative,type_of_LNR):
     '''
      Standard plotting functions for the Unwrap phase object
 
@@ -195,8 +195,8 @@ def Plot_and_Save_Delta_Phase(Frequency_Vector, Phase_Table, Index_Ref, File_nam
     data_to_plot = []
     plot_axis = Frequency_Vector
     fig = plt.figure()
-    plt.title('Phase unwrap differences_reference_LNA:'+str(Index_Ref+1))
-    plt.legend('Phase unwrap differences_reference_LNA:'+str(Index_Ref+1))
+    plt.title('Phase unwrap differences_reference_' + type_of_LNR +':' + str(Index_Ref+1))
+    plt.legend('Phase unwrap differences_reference_' + type_of_LNR +':' +str(Index_Ref+1))
     plt.xlabel('Frequency in Hz')
     plt.ylabel('Delta angle in degrees')
 

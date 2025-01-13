@@ -44,7 +44,7 @@ VNA_4           =   vna.VNA()
 VNA_TEMP        =   vna.VNA()
 VNA_TEMP_CONCAT =   vna.VNA()
 UW_Phase_Table  =   []
-Phase_Reference =   2
+Phase_Reference =   1
 
 LNB_1 = ['LNA1_090125_161728Gain.S2P', 'LNA1_090125_162022Gain.S2P', 'LNA1_090125_162415Gain.S2P', 'LNA1_090125_162708Gain.S2P']
 LNB_2 = ['LNA1_100125_103922Gain.S2P', 'LNA1_100125_104912Gain.S2P', 'LNA1_100125_104403Gain.S2P', 'LNA1_100125_105036Gain.S2P']
@@ -64,8 +64,8 @@ LNB_LIST.append(LNB_4)
 #else:
 #    workbook = Workbook()
 
-_LNB_number                 = 4
-_Branche_number             = 4
+_LNB_number                 = 1
+_Branche_number             = 1
 
 
 if (_LNB_number == 0):
@@ -98,7 +98,7 @@ P1: INPUT
 P2: OUTPUT
 S21 = GAIN
 '''
-_BASIC_PROCESSING = True
+_BASIC_PROCESSING = False
 
 if (_BASIC_PROCESSING == True):
 
@@ -139,66 +139,87 @@ if (_BASIC_PROCESSING == True):
     VNA_TEMP.save_LNB(object_name+'_'+str(_LNB_number)+'_'+__S_PARAMETER_DISPLAY,"angle_with_rotations",__S_PARAMETER_DISPLAY, warehouse_sub_directory)
     sleep(1)
 else:
-    for _LNA_level_1 in range(0,4,1):
-        for _LNA_level_2 in range(0,4,1):
-            for _LNA_level_3 in range(0,4):
-                for _LNA_level_4 in range(0,4):
+    for _LNB_number in range(1,5,1):
+        for _Branche_number_item in range(1,5,1)
+        _Branche_number = 1
 
-                    list_of_objects = []
-                    UW_Phase_Table = []
+        list_of_objects = []
+        UW_Phase_Table = []
 
-                    _LNA_number_1           =   1
-                    _LNA_serial_number_1    =   93+_LNA_level_1
-                    _LNA_number_2           =   2
-                    _LNA_serial_number_2    =   97+_LNA_level_2
-                    _LNA_number_3           =   3
-                    _LNA_serial_number_3    =   101+_LNA_level_3
-                    _LNA_number_4           =   4
-                    _LNA_serial_number_4    =   105+_LNA_level_4
+        warehouse_file_name, warehouse_sub_directory = GAIN.build_file_name_LNB(_LNB_number, _Branche_number)
+        print('loading object from:', warehouse_file_name)
+        VNA_TEMP = GAIN.read_pkl_object(warehouse_file_name)
 
-                    warehouse_file_name, warehouse_sub_directory = GAIN.build_file_name(_LNA_number_1, _LNA_serial_number_1)
-                    print('loading object from:', warehouse_file_name)
-                    VNA_TEMP = GAIN.read_pkl_object(warehouse_file_name)
-                    list_of_objects.append(VNA_TEMP)
+        _file_length = 26
+        _file_name_S2P = VNA_TEMP.S2P[:-_file_length]
+        _reconstructed = warehouse_sub_directory + LNB_LIST[_LNB_number - 1][_Branche_number - 1]
+        # _device = Network(self.S2P)
+        VNA_TEMP.change_name(_reconstructed)
+        print('ADRESS:', VNA_TEMP.S2P)
+        VNA_TEMP.change_name(_reconstructed)
+        list_of_objects.append(VNA_TEMP)
 
-                    warehouse_file_name, warehouse_sub_directory = GAIN.build_file_name(_LNA_number_2, _LNA_serial_number_2)
-                    print('loading object from:', warehouse_file_name)
-                    VNA_TEMP = GAIN.read_pkl_object(warehouse_file_name)
-                    list_of_objects.append(VNA_TEMP)
+        _Branche_number += 1
 
-                    warehouse_file_name, warehouse_sub_directory = GAIN.build_file_name(_LNA_number_3, _LNA_serial_number_3)
-                    print('loading object from:', warehouse_file_name)
-                    VNA_TEMP = GAIN.read_pkl_object(warehouse_file_name)
-                    list_of_objects.append(VNA_TEMP)
+        warehouse_file_name, warehouse_sub_directory = GAIN.build_file_name_LNB(_LNB_number, _Branche_number)
+        print('loading object from:', warehouse_file_name)
+        VNA_TEMP = GAIN.read_pkl_object(warehouse_file_name)
+        _file_length = 26
+        _file_name_S2P = VNA_TEMP.S2P[:-_file_length]
+        _reconstructed = warehouse_sub_directory + LNB_LIST[_LNB_number - 1][_Branche_number - 1]
+        # _device = Network(self.S2P)
+        VNA_TEMP.change_name(_reconstructed)
+        print('ADRESS:', VNA_TEMP.S2P)
+        list_of_objects.append(VNA_TEMP)
 
-                    warehouse_file_name, warehouse_sub_directory = GAIN.build_file_name(_LNA_number_4, _LNA_serial_number_4)
-                    print('loading object from:', warehouse_file_name)
-                    VNA_TEMP = GAIN.read_pkl_object(warehouse_file_name)
-                    list_of_objects.append(VNA_TEMP)
+        _Branche_number += 1
+        warehouse_file_name, warehouse_sub_directory = GAIN.build_file_name_LNB(_LNB_number, _Branche_number)
+        print('loading object from:', warehouse_file_name)
+        VNA_TEMP = GAIN.read_pkl_object(warehouse_file_name)
+        _file_length = 26
+        _file_name_S2P = VNA_TEMP.S2P[:-_file_length]
+        _reconstructed = warehouse_sub_directory + LNB_LIST[_LNB_number - 1][_Branche_number - 1]
+        # _device = Network(self.S2P)
+        VNA_TEMP.change_name(_reconstructed)
+        print('ADRESS:', VNA_TEMP.S2P)
+        list_of_objects.append(VNA_TEMP)
 
-                    a1 = str(_LNA_serial_number_1)
-                    a2 = str(_LNA_serial_number_2)
-                    a3 = str(_LNA_serial_number_3)
-                    a4 = str(_LNA_serial_number_4)
+        _Branche_number += 1
+        warehouse_file_name, warehouse_sub_directory = GAIN.build_file_name_LNB(_LNB_number, _Branche_number)
+        print('loading object from:', warehouse_file_name)
+        VNA_TEMP = GAIN.read_pkl_object(warehouse_file_name)
+        _file_length = 26
+        _file_name_S2P = VNA_TEMP.S2P[:-_file_length]
+        _reconstructed = warehouse_sub_directory + LNB_LIST[_LNB_number - 1][_Branche_number - 1]
+        # _device = Network(self.S2P)
+        VNA_TEMP.change_name(_reconstructed)
+        print('ADRESS:', VNA_TEMP.S2P)
+        list_of_objects.append(VNA_TEMP)
 
 
-                    __S_PARAMETER_DISPLAY       =   'All_Phase_United'
-                    VNA_TEMP.WorkingDirectory   =   'H:\\DATA_WARE_HOUSE' + '\\' + 'data\\'+__S_PARAMETER_DISPLAY
+        a1 = str(1)
+        a2 = str(2)
+        a3 = str(3)
+        a4 = str(4)
+
+
+        __S_PARAMETER_DISPLAY       =   'All_Phase_United'
+        VNA_TEMP.WorkingDirectory   =   'H:\\DATA_WARE_HOUSE' + '\\' + 'data\\'+__S_PARAMETER_DISPLAY
 
                     ##__S_PARAMETER_DISPLAY       =   'All_Phase_United'+'\\'+'SN'+a1+'\\'+'SN'+a2+'\\'+'SN'+a3+'\\'+'SN'+a4
                     ##VNA_TEMP.WorkingDirectory   =   'H:\\DATA_WARE_HOUSE' + '\\' + 'data\\'+__S_PARAMETER_DISPLAY
 
-                    if not os.path.exists(VNA_TEMP.WorkingDirectory):
-                        os.makedirs(VNA_TEMP.WorkingDirectory)
+        if not os.path.exists(VNA_TEMP.WorkingDirectory):
+            os.makedirs(VNA_TEMP.WorkingDirectory)
     # Need a debug
 
-                    #[UW_Phase_LNA_1, UW_Phase_LNA_2, UW_Phase_LNA_3, UW_Phase_LNA_4, Frequency_Vector] = VNA_TEMP_CONCAT.concat(list_of_objects[0], list_of_objects[1],list_of_objects[2],list_of_objects[3],"angle_unwrapped")
-                    [UW_Phase_LNA_1, UW_Phase_LNA_2, UW_Phase_LNA_3, UW_Phase_LNA_4,Frequency_Vector] = VNA_TEMP_CONCAT.concat_gain(list_of_objects[0], list_of_objects[1],list_of_objects[2], list_of_objects[3], "gain")
+        [UW_Phase_LNB_1, UW_Phase_LNB_2, UW_Phase_LNB_3, UW_Phase_LNB_4, Frequency_Vector] = VNA_TEMP_CONCAT.concat(list_of_objects[0], list_of_objects[1],list_of_objects[2],list_of_objects[3],"angle_unwrapped")
+        #[UW_Phase_LNA_1, UW_Phase_LNA_2, UW_Phase_LNA_3, UW_Phase_LNA_4,Frequency_Vector] = VNA_TEMP_CONCAT.concat_gain(list_of_objects[0], list_of_objects[1],list_of_objects[2], list_of_objects[3], "gain")
 #
-#                    UW_Phase_Table.append(UW_Phase_LNA_1)
-#                    UW_Phase_Table.append(UW_Phase_LNA_2)
-#                    UW_Phase_Table.append(UW_Phase_LNA_3)
-#                    UW_Phase_Table.append(UW_Phase_LNA_4)
+        #UW_Phase_Table.append(UW_Phase_LNB_1)
+        #UW_Phase_Table.append(UW_Phase_LNB_2)
+        #UW_Phase_Table.append(UW_Phase_LNB_3)
+        #UW_Phase_Table.append(UW_Phase_LNB_4)
 
 #                    Item_name_1 = "LNA"+str(_LNA_number_1) + "_"+ "SN"+ str(_LNA_serial_number_1)
 #                    Item_name_2 = "LNA"+str(_LNA_number_2) + "_"+ "SN"+ str(_LNA_serial_number_2)
@@ -210,27 +231,25 @@ else:
 
                     ### Gain comparison
 
-                    index_start_freq    =   400
-                    index_stop_freq     =   500
+        index_start_freq    =   840
+        index_stop_freq     =   950
 
-                    UW_Phase_Table.append(UW_Phase_LNA_1[index_start_freq:index_stop_freq])
-                    UW_Phase_Table.append(UW_Phase_LNA_2[index_start_freq:index_stop_freq])
-                    UW_Phase_Table.append(UW_Phase_LNA_3[index_start_freq:index_stop_freq])
-                    UW_Phase_Table.append(UW_Phase_LNA_4[index_start_freq:index_stop_freq])
-                    Frequency_Vector_plot   =   Frequency_Vector[index_start_freq:index_stop_freq]
+        UW_Phase_Table.append(UW_Phase_LNB_1[index_start_freq:index_stop_freq])
+        UW_Phase_Table.append(UW_Phase_LNB_2[index_start_freq:index_stop_freq])
+        UW_Phase_Table.append(UW_Phase_LNB_3[index_start_freq:index_stop_freq])
+        UW_Phase_Table.append(UW_Phase_LNB_4[index_start_freq:index_stop_freq])
+        Frequency_Vector_plot   =   Frequency_Vector[index_start_freq:index_stop_freq]
+        #Frequency_Vector_plot = Frequency_Vector
 
-                    Item_name_1 = "LNA" + str(_LNA_number_1) + "_" + "SN" + str(_LNA_serial_number_1)
-                    Item_name_2 = "LNA" + str(_LNA_number_2) + "_" + "SN" + str(_LNA_serial_number_2)
-                    Item_name_3 = "LNA" + str(_LNA_number_3) + "_" + "SN" + str(_LNA_serial_number_3)
-                    Item_name_4 = "LNA" + str(_LNA_number_4) + "_" + "SN" + str(_LNA_serial_number_4)
-                    #Status = GAIN.Plot_and_Save_Delta_Phase(Frequency_Vector_plot, UW_Phase_Table, Phase_Reference,
-                    #                                        VNA_TEMP.WorkingDirectory + '\\Phase_Diff_deg', Item_name_1,
-                    #                                        Item_name_2, Item_name_3, Item_name_4, +10, -10)
+        Item_name_1 = "LNB" + str(1) + "_" + "BRANCHE" + str(1)
+        Item_name_2 = "LNB" + str(2) + "_" + "BRANCHE" + str(2)
+        Item_name_3 = "LNB" + str(3) + "_" + "BRANCHE" + str(3)
+        Item_name_4 = "LNB" + str(4) + "_" + "BRANCHE" + str(4)
 
-                    #Status = GAIN.Plot_and_Save_Magnitude_Phase(Frequency_Vector_plot, UW_Phase_Table,
-                    #                                            VNA_TEMP.WorkingDirectory + '\\Phase_Magnitude_deg',
-                    #                                            Item_name_1, Item_name_2, Item_name_3, Item_name_4)
+        Status = GAIN.Plot_and_Save_Delta_Phase(Frequency_Vector_plot, UW_Phase_Table, Phase_Reference,VNA_TEMP.WorkingDirectory + '\\Phase_Diff_deg', Item_name_1,Item_name_2, Item_name_3, Item_name_4, +10, -10,'Branche')
 
-                    Status = GAIN.Plot_and_Save_Magnitude_Gain(Frequency_Vector_plot, UW_Phase_Table,
-                                                                VNA_TEMP.WorkingDirectory + '\\Gain_Magnitude_dB',
-                                                                Item_name_1, Item_name_2, Item_name_3, Item_name_4)
+        Status = GAIN.Plot_and_Save_Magnitude_Phase(Frequency_Vector_plot, UW_Phase_Table,VNA_TEMP.WorkingDirectory + '\\Phase_Magnitude_deg',Item_name_1, Item_name_2, Item_name_3, Item_name_4)
+#
+#                    Status = GAIN.Plot_and_Save_Magnitude_Gain(Frequency_Vector_plot, UW_Phase_Table,
+#                                                                VNA_TEMP.WorkingDirectory + '\\Gain_Magnitude_dB',
+#                                                                Item_name_1, Item_name_2, Item_name_3, Item_name_4)

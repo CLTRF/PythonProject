@@ -147,7 +147,7 @@ class VNA():
         _device_2 = Network(_object_2.S2P)
         _device_3 = Network(_object_3.S2P)
         _device_4 = Network(_object_4.S2P)
-        device = Network(self.S2P)
+        #device = Network(self.S2P)
         #device = Network(frequency=_device_1.frequency,COMPONENT_FUNC_DICT= _device_1.COMPONENT_FUNC_DICT, PRIMARY_PROPERTY = _device_1.PRIMARY_PROPERTIES, number_of_ports=2, nports = _device_1.nports ,s11=_device_1.s21, s12=_device_2.s21,s21=_device_3.s21, s22=_device_4.s21,name='VNA1,2,3,4')
         rng = np.random.default_rng()
         s = (_device_1.s_deg_unwrap[0,1], _device_2.s_deg_unwrap[0,1], _device_2.s_deg_unwrap[0,1], _device_2.s_deg_unwrap[0,1])
@@ -168,10 +168,10 @@ class VNA():
         Phase_LNA_3 = Phase_LNA_3_table[:,1,0]
         Phase_LNA_4 = Phase_LNA_4_table[:,1,0]
 
-        device.s11 = (_device_1.s21)*1
-        device.s12 = (_device_2.s21)*1
-        device.s22 = (_device_3.s21)*1
-        device.s21 = (_device_4.s21)*1
+        #device.s11 = (_device_1.s21)*1
+        #device.s12 = (_device_2.s21)*1
+        #device.s22 = (_device_3.s21)*1
+        #device.s21 = (_device_4.s21)*1
 
         return Phase_LNA_1, Phase_LNA_2, Phase_LNA_3, Phase_LNA_4, _device_1.frequency.f
 
