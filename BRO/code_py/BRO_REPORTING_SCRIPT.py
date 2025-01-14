@@ -44,7 +44,7 @@ VNA_4           =   vna.VNA()
 VNA_TEMP        =   vna.VNA()
 VNA_TEMP_CONCAT =   vna.VNA()
 UW_Phase_Table  =   []
-Phase_Reference =   2
+Phase_Reference =   1
 
 
 ### Provision to Excel Generation file

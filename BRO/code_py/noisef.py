@@ -16,20 +16,17 @@
 #IF power fixed
 #plot spur levels as time
 
-import instrument as ik
-import sys,os
 
-#sys.path.insert(1, '/home/max/python/myimport')
-sys.path.insert(1, 'C:/Users/CLT/PycharmProjects/PythonProject/BRO/Include')
+import instruments as ik
+import sys,os
+sys.path.insert(1, '/home/max/python/myimport')
 import numpy as np
-#import SMU200
-#import N9000A
+import SMU200
+import N9000A
 import time
 import json
 import datetime
 import select
-import gs_instrument
-from gs_instrument import spectrum_analyzer
 
 
 #######################20.0	30.0#######################################################
@@ -37,8 +34,9 @@ from gs_instrument import spectrum_analyzer
 ##############################################################################
 
 #TCP settings
+SMU200_host = '10.0.9.173'
 N9000a_host='10.0.9.212'
-
+#N9000a_host='10.0.9.102'
 
 
 #setup1 P47-10
@@ -52,32 +50,35 @@ mod_choice=0
 
 
 #initalization of instruments
-N9000b=spectrum_analyzer.KeysightCXA(N9000a_host)
-N9000b.get_trace_xy()
-print('went through')
+N9000b=N9000A.N9000(N9000a_host)
+SMU200b=SMU200.SMU200(SMU200_host)
 
-# RF frequency
-RF_range=[3000,3100] #MHz
 
+SMU200b.single_freq(-15,IF_freq) #set iF
+SMU200b.RF_on()
+# RF frequnecy
+RF_range=[9345,9450] #MHz
+IF_range=[3295,3405]
+LO=6045
 cal=True
 
 if cal==True:
-    N9000b.NF_meas(RF_range[0],RF_range[1],2,8,41)
+    N9000b.NF_meas_converter(IF_range[0],IF_range[1],2,16,LO,41)
     print("Do calibration, hit enter when ready to capture data ")
     while True:
         if sys.stdin in select.select([sys.stdin], [], [], 0)[0]:
             line = raw_input()
             break
 
-for LNA_no in range(1,5):
-    print("Connect cable to LNA{0} to Do measurements and hit ready to capture data ".format(LNA_no))
+for LNB_no in range(1,5):
+    print("Connect cable to LNB{0} to Do measurements and hit ready to capture data ".format(LNB_no))
     while True:
         if sys.stdin in select.select([sys.stdin], [], [], 0)[0]:
             line = raw_input()
             break
-    N9000b.copy_picture1("pic{0}".format(LNA_no))
+    N9000b.copy_picture1("pic{0}".format(LNB_no))
     NF,Gain=list(N9000b.get_NF())
-    xx="{0}.csv".format(LNA_no)
+    xx="{0}.csv".format(LNB_no)
     csv_file=open(xx, mode='w')
     for i in range(0,len(NF)):
         xxx="{0},{1}\n".format(NF[i],Gain[i])
