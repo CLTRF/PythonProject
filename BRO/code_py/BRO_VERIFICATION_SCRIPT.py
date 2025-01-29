@@ -46,9 +46,9 @@ _lim        =   0
 _data       =   []
 
 ### references given on the package from production
-_LNA_number = 1
-_LNA_serial_number = 94
-_str_IP_vector_analyzer = "10.0.8.30"
+_LNA_number = 4
+_LNA_serial_number = 102
+_str_IP_vector_analyzer = "10.0.8.112"
 
 if (_LNA_number == 0):
     object_name = 'cal_kit'

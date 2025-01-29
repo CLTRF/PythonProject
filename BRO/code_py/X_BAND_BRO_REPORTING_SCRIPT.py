@@ -44,7 +44,7 @@ VNA_4           =   vna.VNA()
 VNA_TEMP        =   vna.VNA()
 VNA_TEMP_CONCAT =   vna.VNA()
 UW_Phase_Table  =   []
-Phase_Reference =   1
+Phase_Reference =   1 # Branche reference - 1
 
 LNB_1 = ['LNA1_090125_161728Gain.S2P', 'LNA1_090125_162022Gain.S2P', 'LNA1_090125_162415Gain.S2P', 'LNA1_090125_162708Gain.S2P']
 LNB_2 = ['LNA1_100125_103922Gain.S2P', 'LNA1_100125_104912Gain.S2P', 'LNA1_100125_104403Gain.S2P', 'LNA1_100125_105036Gain.S2P']
@@ -242,7 +242,7 @@ else:
         Item_name_3 = "LNB" + str(_LNB_number) + "_" + "BRANCHE" + str(3)
         Item_name_4 = "LNB" + str(_LNB_number) + "_" + "BRANCHE" + str(4)
 
-        #Status = GAIN.Plot_and_Save_Delta_Phase(Frequency_Vector_plot, UW_Phase_Table, Phase_Reference,VNA_TEMP.WorkingDirectory + '\\Phase_Diff_deg', Item_name_1,Item_name_2, Item_name_3, Item_name_4, +10, -10,'Branche')
+        Status = GAIN.Plot_and_Save_Delta_Phase(Frequency_Vector_plot, UW_Phase_Table, Phase_Reference,VNA_TEMP.WorkingDirectory + '\\Phase_Diff_deg', Item_name_1,Item_name_2, Item_name_3, Item_name_4, +10, -10,'Branche')
 
         Status = GAIN.Plot_and_Save_Magnitude_Phase(Frequency_Vector_plot, UW_Phase_Table,VNA_TEMP.WorkingDirectory + '\\Phase_Magnitude_deg',Item_name_1, Item_name_2, Item_name_3, Item_name_4)
 #

@@ -354,7 +354,7 @@ def _NOISE_FIGURE_MEASURMENTS_X_BAND2():
     _N9000a.set_attenuation_dB(_Attenuation_dB)
 
     if _cal==True:
-        _N9000a.NF_meas(IF_range[0], IF_range[1], 2, 8, 41)
+        #_N9000a.NF_meas(IF_range[0], IF_range[1], 2, 8, 41)
         #temp_N9000A.NF_meas(_N9000a,RF_range[0],RF_range[1],2,8,41)
         print("Do calibration, hit enter when ready to capture data ")
 
@@ -362,7 +362,7 @@ def _NOISE_FIGURE_MEASURMENTS_X_BAND2():
 
         serial_number_count = 0
 
-        for _LNB_no in range(1, 5, 1):
+        for _LNB_no in range(1, 3, 1):
             print("Connect cable to LNB{0} to Do measurements and hit ready to capture data ".format(_LNB_no))
             line = input()
             for _LNB_level_2 in range(1, 5, 1):
