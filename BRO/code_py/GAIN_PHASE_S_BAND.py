@@ -408,23 +408,38 @@ def _S_BAND_SPARAMETER(_LNA_no, _Serial_Number,  _str_IP_vector_analyzer):
     return (True, _file_name_for_saving_sc,_file_name_for_saving_S2P,_data)
 
 
-def save_to_excel(patterns_obj, filename = 'Default_XLS'):
+def Generate_NF_Gain_Excel_SpreadSheets(CSV_file_name, filename = 'Default_XLS'):
 
     from openpyxl import load_workbook
     from openpyxl import Workbook
     import csv
-    import copy
-    import logging
-    import time
-    import datetime
-    from math import inf
-    from types import SimpleNamespace
-    import numpy as np
-    import gs_instrument
-    from gs_instrument import network_analyzer
 
-    _S2P_file_name          =   []
-    _Gain_Phase_Parameter   =   []
+    __row_pad               =   1
+    __col_pad               =   1
+    __start_frequency_MHz   =   3000
+    __step_in_MHz           =   100/40
+
+    __key_1   =   'FREQ in MHz'
+    __key_2   =   'NF in dB'
+    __key_3   =   'GAIN in dB'
+
+    #if not os.path.exists('output'):
+    #    os.makedirs('output')
+    #filename = 'output//'+filename+'.xlsx'
+    #if os.path.isfile(filename):
+    #    workbook = load_workbook(filename)
+    #else:
+    #    workbook = Workbook()
+
+    workbook = load_workbook(filename)
+    worksheet_NF    =   workbook.create_sheet(title='NF')
+    worksheet_GAIN  =   workbook.create_sheet(title='GAIN')
+
+    __fill_worksheet(worksheet_NF,      __row_pad, __col_pad, __key_1)
+    __fill_worksheet(worksheet_GAIN,    __row_pad, __col_pad, __key_1)
+    __fill_worksheet(worksheet_NF,      __row_pad, __col_pad+1, __key_2)
+    __fill_worksheet(worksheet_GAIN,    __row_pad, __col_pad+1, __key_3)
+    __row_pad   +=    1
 
     '''
     Saves selected patterns to an Excel file
@@ -441,16 +456,31 @@ def save_to_excel(patterns_obj, filename = 'Default_XLS'):
             the same name exists new sheets will be added. If the file does not exist it will be\
             created.
     '''
-    if not os.path.exists('output'):
-        os.makedirs('output')
-    filename = 'output//'+filename+'.xlsx'
-    if os.path.isfile(filename):
-        workbook = load_workbook(filename)
-    else:
-        workbook = Workbook()
+    __FREQ_MHz  =   __start_frequency_MHz
+    with open(CSV_file_name, newline='') as csvfile:
 
-##    temp_field,_,context = patterns_obj.(pat, field, field_format)
+        spamreader = csv.reader(csvfile, delimiter=',', quotechar='|')
 
-    worksheet = workbook.create_sheet(title=str(pat)+'_'+field+'_'+field_format)
-##    __fill_worksheet(worksheet, context, temp_field)   .Gain
+        for row in spamreader:
+
+            row = ', '.join(row)
+            NF          =   row[0:10].replace('.',',')
+            GAIN        =   row[13:23].replace('.',',')
+            FREQ_str    =   str(__FREQ_MHz).replace('.',',')
+
+            __fill_worksheet(worksheet_NF, __row_pad, __col_pad, FREQ_str)
+            __fill_worksheet(worksheet_GAIN, __row_pad, __col_pad, FREQ_str)
+            __fill_worksheet(worksheet_GAIN, __row_pad, __col_pad+1, GAIN)
+            __fill_worksheet(worksheet_NF, __row_pad, __col_pad+1, NF)
+
+            __row_pad +=    1
+            __FREQ_MHz += __step_in_MHz
+
     workbook.save(filename)
+
+
+def __fill_worksheet(worksheet, row_pad, col_pad, data):
+    '''
+    helper function for excel file storage
+    '''
+    worksheet.cell(row_pad, col_pad, data)
