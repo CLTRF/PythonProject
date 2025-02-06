@@ -175,6 +175,87 @@ class VNA():
 
         return Phase_LNA_1, Phase_LNA_2, Phase_LNA_3, Phase_LNA_4, _device_1.frequency.f
 
+    def concat_S_parameter_five_ports(self, _object_1, _object_2, _object_3, _object_4, _object_5, legend):
+
+#        if not os.path.exists(self.WorkingDirectory):
+#            os.makedirs(self.WorkingDirectory)
+
+        _device_1 = Network(_object_1.S2P)
+        _device_2 = Network(_object_2.S2P)
+        _device_3 = Network(_object_3.S2P)
+        _device_4 = Network(_object_4.S2P)
+        _device_5 = Network(_object_5.S2P)
+
+        rng = np.random.default_rng()
+
+        if (legend == 'gain'):
+
+                Gain_LNA_1_table = _device_1.s_db
+                Gain_LNA_2_table = _device_2.s_db
+                Gain_LNA_3_table = _device_3.s_db
+                Gain_LNA_4_table = _device_4.s_db
+                Gain_LNA_5_table = _device_5.s_db
+                Gain_LNA_1 = Gain_LNA_1_table[:, 1, 0]
+                Gain_LNA_2 = Gain_LNA_2_table[:, 1, 0]
+                Gain_LNA_3 = Gain_LNA_3_table[:, 1, 0]
+                Gain_LNA_4 = Gain_LNA_4_table[:, 1, 0]
+                Gain_LNA_5 = Gain_LNA_5_table[:, 1, 0]
+
+
+        if (legend == 's21'):
+            s_db_1 = _device_1.s_db
+            s_db_2 = _device_2.s_db
+            s_db_3 = _device_3.s_db
+            s_db_4 = _device_4.s_db
+            s_db_5 = _device_5.s_db
+            _output_1   =   s_db_1[:, 1, 0]
+            _output_2   =   s_db_2[:, 1, 0]
+            _output_3   =   s_db_3[:, 1, 0]
+            _output_4   =   s_db_4[:, 1, 0]
+            _output_5   =   s_db_5[:, 1, 0]
+
+        if (legend == 's12'):
+            s_db_1 = _device_1.s_db
+            s_db_2 = _device_2.s_db
+            s_db_3 = _device_3.s_db
+            s_db_4 = _device_4.s_db
+            s_db_5 = _device_5.s_db         
+            _output_1   =   s_db_1[:, 0, 1]
+            _output_2   =   s_db_2[:, 0, 1]
+            _output_3   =   s_db_3[:, 0, 1]
+            _output_4   =   s_db_4[:, 0, 1]
+            _output_5   =   s_db_5[:, 0, 1]
+
+        if (legend == 's11'):
+            s_db_1 = _device_1.s_db
+            s_db_2 = _device_2.s_db
+            s_db_3 = _device_3.s_db
+            s_db_4 = _device_4.s_db
+            s_db_5 = _device_5.s_db
+            _output_1   =   s_db_1[:, 0, 0]
+            _output_2   =   s_db_2[:, 0, 0]
+            _output_3   =   s_db_3[:, 0, 0]
+            _output_4   =   s_db_4[:, 0, 0]
+            _output_5   =   s_db_5[:, 0, 0]
+    
+
+        if (legend == 's22'):
+            s_db_1 = _device_1.s_db
+            s_db_2 = _device_2.s_db
+            s_db_3 = _device_3.s_db
+            s_db_4 = _device_4.s_db
+            s_db_5 = _device_5.s_db         
+            _output_1   =   s_db_1[:, 1, 1]
+            _output_2   =   s_db_2[:, 1, 1]
+            _output_3   =   s_db_3[:, 1, 1]
+            _output_4   =   s_db_4[:, 1, 1]
+            _output_5   =   s_db_5[:, 1, 1]
+    
+
+        return _output_1, _output_2, _output_3, _output_4, _output_5, _device_1.frequency.f
+
+
+
     def concat_gain(self, _object_1, _object_2, _object_3, _object_4, legend):
 
 #        if not os.path.exists(self.WorkingDirectory):
