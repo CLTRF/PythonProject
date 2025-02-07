@@ -77,6 +77,9 @@ class VNA():
     def change_name(self, file_name):
         self.S2P = file_name
 
+    def change_working_directory(self, working_directory_name):
+        self.WorkingDirectory = working_directory_name
+
     def __get_raw_field_data(self, pat_ind):
         '''
         Warning:
@@ -254,7 +257,43 @@ class VNA():
 
         return _output_1, _output_2, _output_3, _output_4, _output_5, _device_1.frequency.f
 
+    def concat(self, _object_1, _object_2, _object_3, _object_4, legend):
 
+        #        if not os.path.exists(self.WorkingDirectory):
+        #            os.makedirs(self.WorkingDirectory)
+
+        _device_1 = Network(_object_1.S2P)
+        _device_2 = Network(_object_2.S2P)
+        _device_3 = Network(_object_3.S2P)
+        _device_4 = Network(_object_4.S2P)
+        # device = Network(self.S2P)
+        # device = Network(frequency=_device_1.frequency,COMPONENT_FUNC_DICT= _device_1.COMPONENT_FUNC_DICT, PRIMARY_PROPERTY = _device_1.PRIMARY_PROPERTIES, number_of_ports=2, nports = _device_1.nports ,s11=_device_1.s21, s12=_device_2.s21,s21=_device_3.s21, s22=_device_4.s21,name='VNA1,2,3,4')
+        rng = np.random.default_rng()
+        s = (_device_1.s_deg_unwrap[0, 1], _device_2.s_deg_unwrap[0, 1], _device_2.s_deg_unwrap[0, 1],
+             _device_2.s_deg_unwrap[0, 1])
+        # device = Network(frequency=_device_1.frequency, s_deg_unwrap = s, name='random values 2-port')
+
+        # device.s11 = _device_1.s21
+        # device.s12 = _device_2.s21
+        # device.s22 = _device_3.s21
+        # device.s21 = _device_4.s21
+
+        Phase_LNA_1_table = _device_1.s_deg_unwrap
+        Phase_LNA_2_table = _device_2.s_deg_unwrap
+        Phase_LNA_3_table = _device_3.s_deg_unwrap
+        Phase_LNA_4_table = _device_4.s_deg_unwrap
+
+        Phase_LNA_1 = Phase_LNA_1_table[:, 1, 0]
+        Phase_LNA_2 = Phase_LNA_2_table[:, 1, 0]
+        Phase_LNA_3 = Phase_LNA_3_table[:, 1, 0]
+        Phase_LNA_4 = Phase_LNA_4_table[:, 1, 0]
+
+        # device.s11 = (_device_1.s21)*1
+        # device.s12 = (_device_2.s21)*1
+        # device.s22 = (_device_3.s21)*1
+        # device.s21 = (_device_4.s21)*1
+
+        return Phase_LNA_1, Phase_LNA_2, Phase_LNA_3, Phase_LNA_4, _device_1.frequency.f
 
     def concat_gain(self, _object_1, _object_2, _object_3, _object_4, legend):
 
@@ -606,6 +645,119 @@ class VNA():
             save_all_figs(self.WorkingDirectory, format=['png', 'eps', 'pdf'])
             # plt.show()
             plt.clf()
+
+        def concat_gain(self, _object_1, _object_2, _object_3, _object_4, legend):
+
+            #        if not os.path.exists(self.WorkingDirectory):
+            #            os.makedirs(self.WorkingDirectory)
+
+            _device_1 = Network(_object_1.S2P)
+            _device_2 = Network(_object_2.S2P)
+            _device_3 = Network(_object_3.S2P)
+            _device_4 = Network(_object_4.S2P)
+            # device = Network(self.S2P)
+            # device = Network(frequency=_device_1.frequency,COMPONENT_FUNC_DICT= _device_1.COMPONENT_FUNC_DICT, PRIMARY_PROPERTY = _device_1.PRIMARY_PROPERTIES, number_of_ports=2, nports = _device_1.nports ,s11=_device_1.s21, s12=_device_2.s21,s21=_device_3.s21, s22=_device_4.s21,name='VNA1,2,3,4')
+            rng = np.random.default_rng()
+            # s = (_device_1.s21[0,1], _device_2.s21[0,1], _device_2.s21[0,1], _device_2.s21[0,1])
+            # device = Network(frequency=_device_1.frequency, a_deg_unwrap = s, name='random values 2-port')
+
+            # device.s11 = _device_1.s21
+            # device.s12 = _device_2.s21
+            # device.s22 = _device_3.s21
+            # device.s21 = _device_4.s21
+
+            Gain_LNA_1_table = _device_1.s_db
+            Gain_LNA_2_table = _device_2.s_db
+            Gain_LNA_3_table = _device_3.s_db
+            Gain_LNA_4_table = _device_4.s_db
+
+            Gain_LNA_1 = Gain_LNA_1_table[:, 1, 0]
+            Gain_LNA_2 = Gain_LNA_2_table[:, 1, 0]
+            Gain_LNA_3 = Gain_LNA_3_table[:, 1, 0]
+            Gain_LNA_4 = Gain_LNA_4_table[:, 1, 0]
+
+            # device.s11 = (_device_1.s21)*1
+            # device.s12 = (_device_2.s21)*1
+            # device.s22 = (_device_3.s21)*1
+            # device.s21 = (_device_4.s21)*1
+
+            return Gain_LNA_1, Gain_LNA_2, Gain_LNA_3, Gain_LNA_4, _device_1.frequency.f
+
+            with plt.style.context('grayscale'):
+                # ring_slot.plot_s_deg()
+                device.frequency.unit = 'ghz'
+                plt.legend(loc=5)
+                plotting.add_markers_to_lines()
+                plt.legend()
+                # plt.legend('Phase Unwrap for LNA1, LNA2, LNA3, LNA4')  # have to re-generate legend
+                plt.title(legend + ' Phase unwrap')
+
+                device.s11.plot_s_deg_unwrap(m=0, n=0, label='LNA1')
+                device.s12.plot_s_deg_unwrap(m=0, n=0, label='LNA2')
+                device.s21.plot_s_deg_unwrap(m=0, n=0, label='LNA3')
+                device.s22.plot_s_deg_unwrap(m=0, n=0, label='LNA4')
+
+                plt.grid()
+                save_all_figs(self.WorkingDirectory, format=['png', 'eps', 'pdf'])
+                plt.clf()
+
+    def save_2_ports(self, _object_1, _legend_1, _type_of_plot_1, _s_param_1, _object_2, _legend_2, _type_of_plot_2, _s_param_2):
+
+        if not os.path.exists(self.WorkingDirectory):
+            os.makedirs(self.WorkingDirectory)
+
+        _device_1 = Network(_object_1.S2P)
+        _device_2 = Network(_object_2.S2P)
+
+        rng = np.random.default_rng()
+        _device_1.frequency.unit = 'ghz'
+
+        with plt.style.context('grayscale'):
+            # ring_slot.plot_s_deg()
+
+            legend = _legend_1 + ' ' + _legend_2
+
+            if (_s_param_1 == 'SMITH_S11' or _s_param_1 == 'SMITH_S22'):
+                # prepare figure
+                    fig_1, ax_1 = plt.subplots(1, 1, figsize=(8, 8))
+                    plt.legend(loc=5)
+                    plt.title(legend + ' Smith')
+                    background = plt.imread('C:/Users/CLT/PycharmProjects/PythonProject/BRO/Include/Smith_Chart.png')
+                    # tweak background position
+                    ax_1.imshow(background, extent=[-1.185, 1.14, -1.13, 1.155])
+                    _device_1.s11.plot_s_smith()
+                    _device_1.s22.plot_s_smith()
+                    save_all_figs(self.WorkingDirectory, format=['png', 'eps', 'pdf'])
+                    # plt.show()
+                    plt.clf()
+            else:
+                plt.legend(loc=5)
+                if (_s_param_1 == 'S11'):
+                    _device_1.s11.plot_s_db(m=0, n=0, label='')
+                if (_s_param_2 == 'S11'):
+                    _device_2.s11.plot_s_db(m=0, n=0, label='')
+                if (_s_param_1 == 'S22'):
+                    _device_1.s22.plot_s_db(m=0, n=0, label='')
+                if (_s_param_2 == 'S22'):
+                    _device_2.s22.plot_s_db(m=0, n=0, label='')
+                if (_s_param_1 == 'S12'):
+                    _device_1.s12.plot_s_db(m=0, n=0, label='')
+                if (_s_param_2 == 'S12'):
+                    _device_2.s12.plot_s_db(m=0, n=0, label='')
+                if (_s_param_1 == 'S21'):
+                    _device_1.s21.plot_s_db(m=0, n=0, label='')
+                if (_s_param_2 == 'S21'):
+                    _device_2.s21.plot_s_db(m=0, n=0, label='')
+                ## plotting.add_markers_to_lines()
+                plt.legend('')  # have to re-generate legend
+                plt.title(legend + ' Amplitude_dB')
+                plt.grid()
+                save_all_figs(self.WorkingDirectory, format=['png', 'eps', 'pdf'])
+                plt.clf()
+
+        Status = True
+
+        return Status
 
     def save_LNB(self, legend, type_of_plot, s_param, data_ware_house_file_name_S2P):
 

@@ -42,241 +42,95 @@ VNA_P2_BEFORE           =   vna.VNA()
 VNA_P3_BEFORE           =   vna.VNA()
 VNA_P4_BEFORE           =   vna.VNA()
 VNA_P5_BEFORE           =   vna.VNA()
+VNA_P6_BEFORE           =   vna.VNA()
 
 VNA_P1_AFTER           =   vna.VNA()
 VNA_P2_AFTER           =   vna.VNA()
 VNA_P3_AFTER           =   vna.VNA()
 VNA_P4_AFTER           =   vna.VNA()
 VNA_P5_AFTER           =   vna.VNA()
-
+VNA_P6_AFTER           =   vna.VNA()
 
 VNA_TEMP        =   vna.VNA()
 VNA_TEMP_CONCAT =   vna.VNA()
 UW_Phase_Table  =   []
 Phase_Reference =   1 # Branche reference - 1
-ANTENNA_BEFORE_GLUE            = ['111129-10_1a.S2P', '111129-10_2a.S2P', '111129-10_3a.S2P', '111129-10_4a.S2P','111129-10_5a.S2P', '111129-10_6a.S2P' ]
+ANTENNA_BEFORE_GLUE            = ['111129-5_1a.S2P', '111129-5_2a.S2P', '111129-5_3a.S2P', '111129-5_4a.S2P','111129-5_5a.S2P', '111129-5_6a.S2P' ]
 ANTENNA_AFTER_GLUE             = ['111129-10_1a.S2P', '111129-10_2a.S2P', '111129-10_3a.S2P', '111129-10_4a.S2P','111129-10_5a.S2P', '111129-10_6a.S2P' ]
 
-Path_to_S2P_BEFORE     =   "H:\\DATA_WARE_HOUSE\\LNB_Antenna\\efterlim\\"
-Path_to_S2P_AFTER      =   "H:\\DATA_WARE_HOUSE\\LNB_Antenna\\førlim\\"
+Path_to_S2P_AFTER          =   "H:\\DATA_WARE_HOUSE\\LNB_Antenna\\efterlim\\"
+Path_to_S2P_BEFORE           =   "H:\\DATA_WARE_HOUSE\\LNB_Antenna\\førlim\\internal\\"
+Path_to_WORKING_DIRECTORY_BEFORE_GLUE   =   "H:\\DATA_WARE_HOUSE\\LNB_Antenna\\DataWareHouse\\BEFORE"
+Path_to_WORKING_DIRECTORY_AFTER_GLUE   =   "H:\\DATA_WARE_HOUSE\\LNB_Antenna\\DataWareHouse\\AFTER"
+Path_to_WORKING_DIRECTORY_COMPARISON   =   "H:\\DATA_WARE_HOUSE\\LNB_Antenna\\DataWareHouse\\COMPARISON"
 
-VNA_P1_BEFORE.change_name(Path_to_S2P_BEFORE+ANTENNA_BEFORE_GLUE[1])
-VNA_P2_BEFORE.change_name(Path_to_S2P_BEFORE+ANTENNA_BEFORE_GLUE[2])
-VNA_P3_BEFORE.change_name(Path_to_S2P_BEFORE+ANTENNA_BEFORE_GLUE[3])
-VNA_P4_BEFORE.change_name(Path_to_S2P_BEFORE+ANTENNA_BEFORE_GLUE[4])
-VNA_P5_BEFORE.change_name(Path_to_S2P_BEFORE+ANTENNA_BEFORE_GLUE[5])
+VNA_P1_BEFORE.change_name(Path_to_S2P_BEFORE+ANTENNA_BEFORE_GLUE[0])
+VNA_P2_BEFORE.change_name(Path_to_S2P_BEFORE+ANTENNA_BEFORE_GLUE[1])
+VNA_P3_BEFORE.change_name(Path_to_S2P_BEFORE+ANTENNA_BEFORE_GLUE[2])
+VNA_P4_BEFORE.change_name(Path_to_S2P_BEFORE+ANTENNA_BEFORE_GLUE[3])
+VNA_P5_BEFORE.change_name(Path_to_S2P_BEFORE+ANTENNA_BEFORE_GLUE[4])
+VNA_P6_BEFORE.change_name(Path_to_S2P_BEFORE+ANTENNA_BEFORE_GLUE[5])
 
-VNA_P1_AFTER.change_name(Path_to_S2P_AFTER+ANTENNA_AFTER_GLUE[1])
-VNA_P2_AFTER.change_name(Path_to_S2P_AFTER+ANTENNA_AFTER_GLUE[2])
-VNA_P3_AFTER.change_name(Path_to_S2P_AFTER+ANTENNA_AFTER_GLUE[3])
-VNA_P4_AFTER.change_name(Path_to_S2P_AFTER+ANTENNA_AFTER_GLUE[4])
-VNA_P5_AFTER.change_name(Path_to_S2P_AFTER+ANTENNA_AFTER_GLUE[5])
+VNA_P1_AFTER.change_name(Path_to_S2P_AFTER+ANTENNA_AFTER_GLUE[0])
+VNA_P2_AFTER.change_name(Path_to_S2P_AFTER+ANTENNA_AFTER_GLUE[1])
+VNA_P3_AFTER.change_name(Path_to_S2P_AFTER+ANTENNA_AFTER_GLUE[2])
+VNA_P4_AFTER.change_name(Path_to_S2P_AFTER+ANTENNA_AFTER_GLUE[3])
+VNA_P5_AFTER.change_name(Path_to_S2P_AFTER+ANTENNA_AFTER_GLUE[4])
+VNA_P6_AFTER.change_name(Path_to_S2P_AFTER+ANTENNA_AFTER_GLUE[5])
+
+VNA_P1_BEFORE.change_working_directory(Path_to_WORKING_DIRECTORY_BEFORE_GLUE)
+VNA_P2_BEFORE.change_working_directory(Path_to_WORKING_DIRECTORY_BEFORE_GLUE)
+VNA_P3_BEFORE.change_working_directory(Path_to_WORKING_DIRECTORY_BEFORE_GLUE)
+VNA_P4_BEFORE.change_working_directory(Path_to_WORKING_DIRECTORY_BEFORE_GLUE)
+VNA_P5_BEFORE.change_working_directory(Path_to_WORKING_DIRECTORY_BEFORE_GLUE)
+VNA_P6_BEFORE.change_working_directory(Path_to_WORKING_DIRECTORY_BEFORE_GLUE)
+
+VNA_P1_AFTER.change_working_directory(Path_to_WORKING_DIRECTORY_AFTER_GLUE)
+VNA_P2_AFTER.change_working_directory(Path_to_WORKING_DIRECTORY_AFTER_GLUE)
+VNA_P3_AFTER.change_working_directory(Path_to_WORKING_DIRECTORY_AFTER_GLUE)
+VNA_P4_AFTER.change_working_directory(Path_to_WORKING_DIRECTORY_AFTER_GLUE)
+VNA_P5_AFTER.change_working_directory(Path_to_WORKING_DIRECTORY_AFTER_GLUE)
+VNA_P6_AFTER.change_working_directory(Path_to_WORKING_DIRECTORY_AFTER_GLUE)
+
+VNA_TEMP_CONCAT.change_working_directory(Path_to_WORKING_DIRECTORY_COMPARISON)
 
 [s11_P1, s11_P2, s11_P3, s11_P4,s11_P5,Frequency_Vector] = VNA_TEMP.concat_S_parameter_five_ports(VNA_P1_BEFORE,VNA_P2_BEFORE,VNA_P3_BEFORE,VNA_P4_BEFORE,VNA_P5_BEFORE, "s11")
 [s22_P1, s22_P2, s22_P3, s22_P4,s22_P5,Frequency_Vector] = VNA_TEMP.concat_S_parameter_five_ports(VNA_P1_BEFORE,VNA_P2_BEFORE,VNA_P3_BEFORE,VNA_P4_BEFORE,VNA_P5_BEFORE, "s22")
 [s12_P1, s12_P2, s12_P3, s12_P4,s12_P5,Frequency_Vector] = VNA_TEMP.concat_S_parameter_five_ports(VNA_P1_BEFORE,VNA_P2_BEFORE,VNA_P3_BEFORE,VNA_P4_BEFORE,VNA_P5_BEFORE, "s12")
 [s21_P1, s21_P2, s21_P3, s21_P4,s21_P5,Frequency_Vector] = VNA_TEMP.concat_S_parameter_five_ports(VNA_P1_BEFORE,VNA_P2_BEFORE,VNA_P3_BEFORE,VNA_P4_BEFORE,VNA_P5_BEFORE, "s21")
 
+_s_param_list   =   ['S11', 'S22', 'S21', 'S12']
+_legend_list    =   ['RETURN LOSS in dB - Back plate not mounted','COUPLING in dB - Back plate not mounted', 'RETURN LOSS in dB - Back plate mounted', 'COUPLING in dB - Back plate mounted']
+_type_of_plot   =   ['magnitude_dB']
+_port_naming    =   ['PORT 1a','PORT 2a','PORT 3a','PORT 4a','1a to 2a','1a to 3a','1a to 4a','2a to 3a','2a to 4a','3a to 5a']
+
+### Performance in Return Loss Before stand alone
+VNA_P1_BEFORE.save(_port_naming[0]+' '+_legend_list[0], _type_of_plot[0], _s_param_list[0])
+VNA_P4_BEFORE.save(_port_naming[1]+' '+_legend_list[0], _type_of_plot[0], _s_param_list[0])
+VNA_P6_BEFORE.save(_port_naming[3]+' '+_legend_list[0], _type_of_plot[0], _s_param_list[0])
+VNA_P3_BEFORE.save(_port_naming[2]+' '+_legend_list[0], _type_of_plot[0], _s_param_list[3])
+
+### Performance in Return Loss After stand alone
+VNA_P1_AFTER.save(_port_naming[0]+' '+_legend_list[2], _type_of_plot[0], _s_param_list[0])
+VNA_P4_AFTER.save(_port_naming[1]+' '+_legend_list[2], _type_of_plot[0], _s_param_list[0])
+VNA_P6_AFTER.save(_port_naming[3]+' '+_legend_list[2], _type_of_plot[0], _s_param_list[0])
+VNA_P3_AFTER.save(_port_naming[2]+' '+_legend_list[2], _type_of_plot[0], _s_param_list[3])
+
+### Performance in Return Loss Before and After on same plots
+VNA_TEMP_CONCAT.save_2_ports(VNA_P1_BEFORE,_port_naming[0]+' '+_legend_list[0], _type_of_plot[0], _s_param_list[0],VNA_P1_AFTER,_port_naming[0]+' '+_legend_list[2], _type_of_plot[0], _s_param_list[0])
+VNA_TEMP_CONCAT.save_2_ports(VNA_P4_BEFORE,_port_naming[1]+' '+_legend_list[0], _type_of_plot[0], _s_param_list[0],VNA_P4_AFTER,_port_naming[1]+' '+_legend_list[2], _type_of_plot[0], _s_param_list[0])
+VNA_TEMP_CONCAT.save_2_ports(VNA_P6_BEFORE,_port_naming[2]+' '+_legend_list[0], _type_of_plot[0], _s_param_list[0],VNA_P6_AFTER,_port_naming[2]+' '+_legend_list[2], _type_of_plot[0], _s_param_list[0])
+VNA_TEMP_CONCAT.save_2_ports(VNA_P3_BEFORE,_port_naming[3]+' '+_legend_list[0], _type_of_plot[0], _s_param_list[1],VNA_P3_AFTER,_port_naming[3]+' '+_legend_list[2], _type_of_plot[0], _s_param_list[1])
+
+### Coupling Loss Before and After on same plots
+VNA_TEMP_CONCAT.save_2_ports(VNA_P1_BEFORE,_port_naming[4]+' '+_legend_list[1], _type_of_plot[0], _s_param_list[2],VNA_P1_AFTER,_port_naming[4]+' '+_legend_list[3], _type_of_plot[0], _s_param_list[2])
+VNA_TEMP_CONCAT.save_2_ports(VNA_P2_BEFORE,_port_naming[5]+' '+_legend_list[1], _type_of_plot[0], _s_param_list[2],VNA_P2_AFTER,_port_naming[5]+' '+_legend_list[3], _type_of_plot[0], _s_param_list[2])
+VNA_TEMP_CONCAT.save_2_ports(VNA_P3_BEFORE,_port_naming[6]+' '+_legend_list[1], _type_of_plot[0], _s_param_list[2],VNA_P3_AFTER,_port_naming[6]+' '+_legend_list[3], _type_of_plot[0], _s_param_list[2])
+VNA_TEMP_CONCAT.save_2_ports(VNA_P4_BEFORE,_port_naming[7]+' '+_legend_list[1], _type_of_plot[0], _s_param_list[2],VNA_P4_AFTER,_port_naming[7]+' '+_legend_list[3], _type_of_plot[0], _s_param_list[2])
+VNA_TEMP_CONCAT.save_2_ports(VNA_P5_BEFORE,_port_naming[8]+' '+_legend_list[1], _type_of_plot[0], _s_param_list[2],VNA_P5_AFTER,_port_naming[8]+' '+_legend_list[3], _type_of_plot[0], _s_param_list[2])
+VNA_TEMP_CONCAT.save_2_ports(VNA_P6_BEFORE,_port_naming[9]+' '+_legend_list[1], _type_of_plot[0], _s_param_list[2],VNA_P6_AFTER,_port_naming[9]+' '+_legend_list[3], _type_of_plot[0], _s_param_list[2])
 
 
-LNB_LIST = []
-LNB_LIST.append(LNB_før_lim)
-LNB_LIST.append(LNB_efter_lim)
-
-
-
-### Provision to Excel Generation file
-
-#filename = 'output//' + filename + '.xlsx'
-#if os.path.isfile(filename):
-#    workbook = load_workbook(filename)
-#else:
-#    workbook = Workbook()
-
-_LNB_number                 = 1
-_Branche_number             = 1
-
-
-
-VNA_TEMP_CONCAT = VNA_TEMP
-
-print('ADRESS:', VNA_TEMP.S2P)
-
-if not os.path.exists('H:\\DATA_WARE_HOUSE' + '\\' + 'data\\'):
-    os.makedirs('H:\\DATA_WARE_HOUSE' + '\\' + 'data\\')
-'''
-Convention 
-P1: INPUT
-P2: OUTPUT
-S21 = GAIN
-'''
-_BASIC_PROCESSING = False
-
-if (_BASIC_PROCESSING == True):
-
-    __S_PARAMETER_DISPLAY       =   'S_PARAM'
-    VNA_TEMP.WorkingDirectory   =   warehouse_sub_directory + '\\' + __S_PARAMETER_DISPLAY
-    VNA_TEMP.save_LNB(object_name+'_'+str(_LNB_number)+'_'+__S_PARAMETER_DISPLAY,"smith",__S_PARAMETER_DISPLAY, warehouse_sub_directory)
-    sleep(1)
-
-    __S_PARAMETER_DISPLAY       =   'S22'
-    VNA_TEMP.WorkingDirectory   =   warehouse_sub_directory + '\\' + __S_PARAMETER_DISPLAY
-    #VNA_TEMP.save(object_name+'_'+str(_LNA_serial_number)+'_'+__S_PARAMETER_DISPLAY,"smith",__S_PARAMETER_DISPLAY)
-    #VNA_TEMP.save('object_name+'_'+str(_LNA_serial_number)+'_''+__S_PARAMETER_DISPLAY,"angle_unwrapped",__S_PARAMETER_DISPLAY)
-    VNA_TEMP.save_LNB(object_name+'_'+str(_LNB_number)+'_'+__S_PARAMETER_DISPLAY,"magnitude_dB",__S_PARAMETER_DISPLAY, warehouse_sub_directory)
-    #VNA_TEMP.save('object_name+'_'+str(_LNA_serial_number)+'_''+__S_PARAMETER_DISPLAY,"angle_with_rotations",__S_PARAMETER_DISPLAY)
-    sleep(1)
-
-    __S_PARAMETER_DISPLAY       =   'S21'
-    VNA_TEMP.WorkingDirectory   =   warehouse_sub_directory + '\\' + __S_PARAMETER_DISPLAY
-    #VNA_TEMP.save(object_name+'_'+str(_LNA_serial_number)+'_' +__S_PARAMETER_DISPLAY,"smith",__S_PARAMETER_DISPLAY)
-    VNA_TEMP.save_LNB(object_name+'_'+str(_LNB_number)+'_'+__S_PARAMETER_DISPLAY,"angle_unwrapped",__S_PARAMETER_DISPLAY, warehouse_sub_directory)
-    VNA_TEMP.save_LNB(object_name+'_'+str(_LNB_number)+'_'+__S_PARAMETER_DISPLAY,"magnitude_dB",__S_PARAMETER_DISPLAY, warehouse_sub_directory)
-    VNA_TEMP.save_LNB(object_name+'_'+str(_LNB_number)+'_'+__S_PARAMETER_DISPLAY,"angle_with_rotations",__S_PARAMETER_DISPLAY, warehouse_sub_directory)
-    sleep(1)
-
-    __S_PARAMETER_DISPLAY       =   'S11'
-    VNA_TEMP.WorkingDirectory   =   warehouse_sub_directory + '\\' + __S_PARAMETER_DISPLAY
-    #VNA_TEMP.save('object_name+'_'+str(_LNA_serial_number)+'_''+__S_PARAMETER_DISPLAY,"angle_unwrapped",__S_PARAMETER_DISPLAY)
-    VNA_TEMP.save_LNB(object_name+'_'+str(_LNB_number)+'_'+__S_PARAMETER_DISPLAY,"magnitude_dB",__S_PARAMETER_DISPLAY, warehouse_sub_directory)
-    #VNA_TEMP.save('object_name+'_'+str(_LNA_serial_number)+'_''+__S_PARAMETER_DISPLAY,"angle_with_rotations",__S_PARAMETER_DISPLAY)
-    #VNA_TEMP.save(object_name+'_'+str(_LNA_serial_number)+'_'+__S_PARAMETER_DISPLAY,"smith",__S_PARAMETER_DISPLAY)
-    sleep(1)
-
-    __S_PARAMETER_DISPLAY       =   'S12'
-    VNA_TEMP.WorkingDirectory   =   warehouse_sub_directory + '\\' + __S_PARAMETER_DISPLAY
-    #VNA_TEMP.save(object_name+'_'+str(_LNA_serial_number)+'_'+__S_PARAMETER_DISPLAY,"smith",__S_PARAMETER_DISPLAY)
-    VNA_TEMP.save_LNB(object_name+'_'+str(_LNB_number)+'_'+__S_PARAMETER_DISPLAY,"angle_unwrapped",__S_PARAMETER_DISPLAY, warehouse_sub_directory)
-    VNA_TEMP.save_LNB(object_name+'_'+str(_LNB_number)+'_'+__S_PARAMETER_DISPLAY,"magnitude_dB",__S_PARAMETER_DISPLAY, warehouse_sub_directory)
-    VNA_TEMP.save_LNB(object_name+'_'+str(_LNB_number)+'_'+__S_PARAMETER_DISPLAY,"angle_with_rotations",__S_PARAMETER_DISPLAY, warehouse_sub_directory)
-    sleep(1)
-else:
-    for _LNB_number in range(1,5,1):
-        _Branche_number = 1
-
-        list_of_objects = []
-        UW_Phase_Table = []
-
-        ##warehouse_file_name, warehouse_sub_directory = GAIN.build_file_name_LNB(_LNB_number, _Branche_number)
-        ##print('loading object from:', warehouse_file_name)
-        ##VNA_TEMP = GAIN.read_pkl_object(warehouse_file_name)
-        ##_file_length = 26
-        ##_file_name_S2P = VNA_TEMP.S2P[:-_file_length]
-        ##_reconstructed = warehouse_sub_directory + LNB_LIST[_LNB_number - 1][_Branche_number - 1]
-        ##VNA_TEMP.change_name(_reconstructed)
-        ##print('ADRESS:', VNA_TEMP.S2P)
-        ##VNA_TEMP.change_name(_reconstructed)
-        ##list_of_objects.append(VNA_TEMP)
-        ##_Branche_number += 1
-
-        ##warehouse_file_name, warehouse_sub_directory = GAIN.build_file_name_LNB(_LNB_number, _Branche_number)
-        ##print('loading object from:', warehouse_file_name)
-        ##VNA_TEMP = GAIN.read_pkl_object(warehouse_file_name)
-        ##_file_length = 26
-        ##_file_name_S2P = VNA_TEMP.S2P[:-_file_length]
-        ##_reconstructed = warehouse_sub_directory + LNB_LIST[_LNB_number - 1][_Branche_number - 1]
-        ##VNA_TEMP.change_name(_reconstructed)
-        ##print('ADRESS:', VNA_TEMP.S2P)
-        ##VNA_TEMP.change_name(_reconstructed)
-        ##list_of_objects.append(VNA_TEMP)
-        ##_Branche_number += 1
-
-        ##warehouse_file_name, warehouse_sub_directory = GAIN.build_file_name_LNB(_LNB_number, _Branche_number)
-        ##print('loading object from:', warehouse_file_name)
-        ##VNA_TEMP = GAIN.read_pkl_object(warehouse_file_name)
-        ##_file_length = 26
-        ##_file_name_S2P = VNA_TEMP.S2P[:-_file_length]
-        ##_reconstructed = warehouse_sub_directory + LNB_LIST[_LNB_number - 1][_Branche_number - 1]
-        ##VNA_TEMP.change_name(_reconstructed)
-        ##print('ADRESS:', VNA_TEMP.S2P)
-        ##VNA_TEMP.change_name(_reconstructed)
-        ##list_of_objects.append(VNA_TEMP)
-        ##_Branche_number += 1
-
-        ##warehouse_file_name, warehouse_sub_directory = GAIN.build_file_name_LNB(_LNB_number, _Branche_number)
-        ##print('loading object from:', warehouse_file_name)
-        ##VNA_TEMP = GAIN.read_pkl_object(warehouse_file_name)
-        ##_file_length = 26
-        ##_file_name_S2P = VNA_TEMP.S2P[:-_file_length]
-        ##_reconstructed = warehouse_sub_directory + LNB_LIST[_LNB_number - 1][_Branche_number - 1]
-        ##VNA_TEMP.change_name(_reconstructed)
-        ##print('ADRESS:', VNA_TEMP.S2P)
-        ##VNA_TEMP.change_name(_reconstructed)
-        ##list_of_objects.append(VNA_TEMP)
-        ##_Branche_number += 1
-
-
-        a1 = str(1)
-        a2 = str(2)
-        a3 = str(3)
-        a4 = str(4)
-
-        __S_PARAMETER_DISPLAY       =   'All_Phase_United'
-        VNA_TEMP.WorkingDirectory   =   'H:\\DATA_WARE_HOUSE' + '\\' + 'data\\'+__S_PARAMETER_DISPLAY
-
-        file_name_CSV_File = "H:\\DATA_WARE_HOUSE\\data\\LNB"+str(_LNB_number)+"\\BRANCHE"+str(_Branche_number) +"\\NF\\NF.csv"
-        file_name_XLS_File = "H:\\DATA_WARE_HOUSE\\data\\LNB"+str(_LNB_number)+"\\NF"+".xlsx"
-        Status = GAIN.Generate_NF_Gain_Excel_SpreadSheets(file_name_CSV_File, file_name_XLS_File)
-        _Branche_number +=  1
-
-        file_name_CSV_File = "H:\\DATA_WARE_HOUSE\\data\\LNB"+str(_LNB_number)+"\\BRANCHE"+str(_Branche_number) +"\\NF\\NF.csv"
-        file_name_XLS_File = "H:\\DATA_WARE_HOUSE\\data\\LNB"+str(_LNB_number)+"\\NF"+".xlsx"
-        Status = GAIN.Generate_NF_Gain_Excel_SpreadSheets(file_name_CSV_File, file_name_XLS_File)
-        _Branche_number +=  1
-
-        file_name_CSV_File = "H:\\DATA_WARE_HOUSE\\data\\LNB"+str(_LNB_number)+"\\BRANCHE"+str(_Branche_number) +"\\NF\\NF.csv"
-        file_name_XLS_File = "H:\\DATA_WARE_HOUSE\\data\\LNB"+str(_LNB_number)+"\\NF"+".xlsx"
-        Status = GAIN.Generate_NF_Gain_Excel_SpreadSheets(file_name_CSV_File, file_name_XLS_File)
-        _Branche_number +=  1
-
-        file_name_CSV_File = "H:\\DATA_WARE_HOUSE\\data\\LNB"+str(_LNB_number)+"\\BRANCHE"+str(_Branche_number) +"\\NF\\NF.csv"
-        file_name_XLS_File = "H:\\DATA_WARE_HOUSE\\data\\LNB"+str(_LNB_number)+"\\NF"+".xlsx"
-        Status = GAIN.Generate_NF_Gain_Excel_SpreadSheets(file_name_CSV_File, file_name_XLS_File)
-
-
-                    ##__S_PARAMETER_DISPLAY       =   'All_Phase_United'+'\\'+'SN'+a1+'\\'+'SN'+a2+'\\'+'SN'+a3+'\\'+'SN'+a4
-                    ##VNA_TEMP.WorkingDirectory   =   'H:\\DATA_WARE_HOUSE' + '\\' + 'data\\'+__S_PARAMETER_DISPLAY
-
-        if not os.path.exists(VNA_TEMP.WorkingDirectory):
-            os.makedirs(VNA_TEMP.WorkingDirectory)
-    # Need a debug
-
-##        [UW_Phase_LNB_1, UW_Phase_LNB_2, UW_Phase_LNB_3, UW_Phase_LNB_4, Frequency_Vector] = VNA_TEMP_CONCAT.concat(list_of_objects[0], list_of_objects[1],list_of_objects[2],list_of_objects[3],"angle_unwrapped")
-        #[UW_Phase_LNB_1, UW_Phase_LNB_2, UW_Phase_LNB_3, UW_Phase_LNB_4,Frequency_Vector] = VNA_TEMP_CONCAT.concat_gain(list_of_objects[0], list_of_objects[1],list_of_objects[2], list_of_objects[3], "gain")
-#
-        #UW_Phase_Table.append(UW_Phase_LNB_1)
-        #UW_Phase_Table.append(UW_Phase_LNB_2)
-        #UW_Phase_Table.append(UW_Phase_LNB_3)
-        #UW_Phase_Table.append(UW_Phase_LNB_4)
-
-#                    Item_name_1 = "LNA"+str(_LNA_number_1) + "_"+ "SN"+ str(_LNA_serial_number_1)
-#                    Item_name_2 = "LNA"+str(_LNA_number_2) + "_"+ "SN"+ str(_LNA_serial_number_2)
-#                    Item_name_3 = "LNA"+str(_LNA_number_3) + "_"+ "SN"+ str(_LNA_serial_number_3)
-#                    Item_name_4 = "LNA"+str(_LNA_number_4) + "_"+ "SN"+ str(_LNA_serial_number_4)
-                    ##Status = GAIN.Plot_and_Save_Delta_Phase(Frequency_Vector, UW_Phase_Table, Phase_Reference, VNA_TEMP.WorkingDirectory+'\\Phase_Diff_deg',Item_name_1,Item_name_2,Item_name_3,Item_name_4,+10, -10)
-                    #Status = GAIN.Plot_and_Save_Magnitude_Phase(Frequency_Vector, UW_Phase_Table, VNA_TEMP.WorkingDirectory+'\\PhaseMag\\'+'\\Phase_Magnitude_deg',Item_name_1,Item_name_2,Item_name_3,Item_name_4 )
-
-
-                    ### Gain comparison
-
-##        index_start_freq    =   840
-##        index_stop_freq     =   950
-
-##        UW_Phase_Table.append(UW_Phase_LNB_1[index_start_freq:index_stop_freq])
-##        UW_Phase_Table.append(UW_Phase_LNB_2[index_start_freq:index_stop_freq])
-##        UW_Phase_Table.append(UW_Phase_LNB_3[index_start_freq:index_stop_freq])
-##        UW_Phase_Table.append(UW_Phase_LNB_4[index_start_freq:index_stop_freq])
-##        Frequency_Vector_plot   =   Frequency_Vector[index_start_freq:index_stop_freq]
-        #Frequency_Vector_plot = Frequency_Vector
-
-##        Item_name_1 = "LNB" + str(_LNB_number) + "_" + "BRANCHE" + str(1)
-##        Item_name_2 = "LNB" + str(_LNB_number) + "_" + "BRANCHE" + str(2)
-##        Item_name_3 = "LNB" + str(_LNB_number) + "_" + "BRANCHE" + str(3)
-##        Item_name_4 = "LNB" + str(_LNB_number) + "_" + "BRANCHE" + str(4)
-
-#        Status = GAIN.Plot_and_Save_Delta_Phase(Frequency_Vector_plot, UW_Phase_Table, Phase_Reference,VNA_TEMP.WorkingDirectory + '\\Phase_Diff_deg', Item_name_1,Item_name_2, Item_name_3, Item_name_4, +10, -10,'Branche')
-
-#        Status = GAIN.Plot_and_Save_Magnitude_Phase(Frequency_Vector_plot, UW_Phase_Table,VNA_TEMP.WorkingDirectory + '\\Phase_Magnitude_deg',Item_name_1, Item_name_2, Item_name_3, Item_name_4)
-
-#
-        #Status = GAIN.Plot_and_Save_Magnitude_Gain(Frequency_Vector_plot, UW_Phase_Table,VNA_TEMP.WorkingDirectory + '\\Gain_Magnitude_dB',Item_name_1, Item_name_2, Item_name_3, Item_name_4)
+#VNA_P3_BEFORE.save(_legend_list[0], _type_of_plot[0], _s_param_list[0])
+#VNA_P4_BEFORE.save(_legend_list[0], _type_of_plot[0], _s_param_list[0])
+#VNA_P5_BEFORE.save(_legend_list[0], _type_of_plot[0], _s_param_list[0])
