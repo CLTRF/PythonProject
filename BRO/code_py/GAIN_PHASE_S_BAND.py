@@ -5,6 +5,8 @@ Author: CLT, date_ 12/12/2024
 
 import sys, os
 
+import numpy as np
+
 #from Tools.scripts.patchcheck import status
 #from pyvisa.constants import VI_ERROR_BERR, VI_ATTR_WIN_BASE_ADDR_32, VI_ATTR_WIN_BASE_ADDR_64
 
@@ -484,3 +486,8 @@ def __fill_worksheet(worksheet, row_pad, col_pad, data):
     helper function for excel file storage
     '''
     worksheet.cell(row_pad, col_pad, data)
+
+def find_value_at_spec(Frequency_Vector, s11_P1, _boundary):
+    _boundary_f64 = np.float64(_boundary)
+    _index_in_Frequency_Vector = np.where(Frequency_Vector == _boundary )[0][0]
+    return (True, s11_P1[_index_in_Frequency_Vector])
