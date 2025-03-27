@@ -64,10 +64,10 @@ Path_to_WORKING_DIRECTORY_BEFORE_GLUE   =   "H:\\DATA_WARE_HOUSE\\LNB_Antenna\\D
 Path_to_WORKING_DIRECTORY_AFTER_GLUE   =   "H:\\DATA_WARE_HOUSE\\LNB_Antenna\\DataWareHouse\\AFTER"
 Path_to_WORKING_DIRECTORY_COMPARISON   =   "H:\\DATA_WARE_HOUSE\\LNB_Antenna\\DataWareHouse\\COMPARISON"
 X_band_RL_Antenna_SPEC = -15
-X_band_COUPLING_Antenna_SPEC = -25
+X_band_COUPLING_Antenna_SPEC = -15
 X_band_COUPLING_Antenna_3_1_SPEC = -15
 _frequency_band_lowest_limit_MHz    =   9.280*1e9
-_frequency_band_highest_limit_MHz   =   9.420*1e9
+_frequency_band_highest_limit_MHz   =   9.4die20*1e9
 
 
 VNA_P1_BEFORE.change_name(Path_to_S2P_BEFORE+ANTENNA_BEFORE_GLUE[0])
@@ -178,18 +178,18 @@ VNA_P5_AFTER.save(_port_naming[1]+_port_naming[3]+' '+_legend_list[3], _type_of_
 VNA_P6_AFTER.save(_port_naming[2]+_port_naming[3]+' '+_legend_list[3], _type_of_plot[0], _s_param_list[3], X_band_COUPLING_Antenna_SPEC)
 
 ### Performance in Return Loss Before and After on same plots
-VNA_TEMP_CONCAT.save_2_ports(VNA_P1_BEFORE,'P1 '+_legend_list[0], _type_of_plot[0], _s_param_list[0],VNA_P1_AFTER,'P1 '+_legend_list[2], _type_of_plot[0], _s_param_list[0], X_band_RL_Antenna_SPEC)
-VNA_TEMP_CONCAT.save_2_ports(VNA_P4_BEFORE,'P2 '+_legend_list[0], _type_of_plot[0], _s_param_list[0],VNA_P4_AFTER,'P2 '+_legend_list[2], _type_of_plot[0], _s_param_list[0], X_band_RL_Antenna_SPEC)
-VNA_TEMP_CONCAT.save_2_ports(VNA_P6_BEFORE,'P3 '+_legend_list[0], _type_of_plot[0], _s_param_list[0],VNA_P6_AFTER,'P3 '+_legend_list[2], _type_of_plot[0], _s_param_list[0], X_band_RL_Antenna_SPEC)
-VNA_TEMP_CONCAT.save_2_ports(VNA_P3_BEFORE,'P4 '+_legend_list[0], _type_of_plot[0], _s_param_list[1],VNA_P3_AFTER,'P4 '+_legend_list[2], _type_of_plot[0], _s_param_list[1], X_band_RL_Antenna_SPEC)
+VNA_TEMP_CONCAT.save_2_ports(VNA_P1_BEFORE,_port_naming[0]+_legend_list[0], _type_of_plot[0], _s_param_list[0],VNA_P1_AFTER,_port_naming[0]+_legend_list[2], _type_of_plot[0], _s_param_list[0], X_band_RL_Antenna_SPEC)
+VNA_TEMP_CONCAT.save_2_ports(VNA_P4_BEFORE,_port_naming[1]+_legend_list[0], _type_of_plot[0], _s_param_list[0],VNA_P4_AFTER,_port_naming[1]+_legend_list[2], _type_of_plot[0], _s_param_list[0], X_band_RL_Antenna_SPEC)
+VNA_TEMP_CONCAT.save_2_ports(VNA_P6_BEFORE,_port_naming[2]+_legend_list[0], _type_of_plot[0], _s_param_list[0],VNA_P6_AFTER,_port_naming[2]+_legend_list[2], _type_of_plot[0], _s_param_list[0], X_band_RL_Antenna_SPEC)
+VNA_TEMP_CONCAT.save_2_ports(VNA_P3_BEFORE,_port_naming[3]+_legend_list[0], _type_of_plot[0], _s_param_list[1],VNA_P3_AFTER,_port_naming[3]+_legend_list[2], _type_of_plot[0], _s_param_list[1], X_band_RL_Antenna_SPEC)
 
 ### Coupling Loss Before and After on same plots
-VNA_TEMP_CONCAT.save_2_ports(VNA_P1_BEFORE,'P1toP2 '+_legend_list[1], _type_of_plot[0], _s_param_list[2],VNA_P1_AFTER,'P1toP2 '+_legend_list[3], _type_of_plot[0], _s_param_list[2], X_band_COUPLING_Antenna_SPEC)
-VNA_TEMP_CONCAT.save_2_ports(VNA_P2_BEFORE,'P1toP3 '+_legend_list[1], _type_of_plot[0], _s_param_list[2],VNA_P2_AFTER,'P1toP3 '+_legend_list[3], _type_of_plot[0], _s_param_list[2], X_band_COUPLING_Antenna_3_1_SPEC)
-VNA_TEMP_CONCAT.save_2_ports(VNA_P3_BEFORE,'P1toP4 '+_legend_list[1], _type_of_plot[0], _s_param_list[2],VNA_P3_AFTER,'P1toP4 '+_legend_list[3], _type_of_plot[0], _s_param_list[2], X_band_COUPLING_Antenna_SPEC)
-VNA_TEMP_CONCAT.save_2_ports(VNA_P4_BEFORE,'P2toP3 '+_legend_list[1], _type_of_plot[0], _s_param_list[2],VNA_P4_AFTER,'P2toP3 '+_legend_list[3], _type_of_plot[0], _s_param_list[2], X_band_COUPLING_Antenna_SPEC)
-VNA_TEMP_CONCAT.save_2_ports(VNA_P5_BEFORE,'P2toP4 '+_legend_list[1], _type_of_plot[0], _s_param_list[2],VNA_P5_AFTER,'P2toP4 '+_legend_list[3], _type_of_plot[0], _s_param_list[2], X_band_COUPLING_Antenna_SPEC)
-VNA_TEMP_CONCAT.save_2_ports(VNA_P6_BEFORE,'P3toP4 '+_legend_list[1], _type_of_plot[0], _s_param_list[2],VNA_P6_AFTER,'P3toP4 '+_legend_list[3], _type_of_plot[0], _s_param_list[2], X_band_COUPLING_Antenna_3_1_SPEC)
+VNA_TEMP_CONCAT.save_2_ports(VNA_P1_BEFORE,'J1XtoJ2X '+_legend_list[1], _type_of_plot[0], _s_param_list[2],VNA_P1_AFTER,'J1XtoJ2X '+_legend_list[3], _type_of_plot[0], _s_param_list[2], X_band_COUPLING_Antenna_SPEC)
+VNA_TEMP_CONCAT.save_2_ports(VNA_P2_BEFORE,'J1XtoJ3X '+_legend_list[1], _type_of_plot[0], _s_param_list[2],VNA_P2_AFTER,'J1XtoJ3X '+_legend_list[3], _type_of_plot[0], _s_param_list[2], X_band_COUPLING_Antenna_3_1_SPEC)
+VNA_TEMP_CONCAT.save_2_ports(VNA_P3_BEFORE,'J1XtoJ4X '+_legend_list[1], _type_of_plot[0], _s_param_list[2],VNA_P3_AFTER,'J1XtoJ4X '+_legend_list[3], _type_of_plot[0], _s_param_list[2], X_band_COUPLING_Antenna_SPEC)
+VNA_TEMP_CONCAT.save_2_ports(VNA_P4_BEFORE,'J2XtoJ3X '+_legend_list[1], _type_of_plot[0], _s_param_list[2],VNA_P4_AFTER,'J2XtoJ3X '+_legend_list[3], _type_of_plot[0], _s_param_list[2], X_band_COUPLING_Antenna_SPEC)
+VNA_TEMP_CONCAT.save_2_ports(VNA_P5_BEFORE,'J2XtoJ4X '+_legend_list[1], _type_of_plot[0], _s_param_list[2],VNA_P5_AFTER,'J2XtoJ4X '+_legend_list[3], _type_of_plot[0], _s_param_list[2], X_band_COUPLING_Antenna_SPEC)
+VNA_TEMP_CONCAT.save_2_ports(VNA_P6_BEFORE,'J3XtoJ4X '+_legend_list[1], _type_of_plot[0], _s_param_list[2],VNA_P6_AFTER,'J3XtoJ4X '+_legend_list[3], _type_of_plot[0], _s_param_list[2], X_band_COUPLING_Antenna_3_1_SPEC)
 
 
 #VNA_P3_BEFORE.save(_legend_list[0], _type_of_plot[0], _s_param_list[0])
