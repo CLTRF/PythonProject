@@ -55,19 +55,21 @@ VNA_TEMP        =   vna.VNA()
 VNA_TEMP_CONCAT =   vna.VNA()
 UW_Phase_Table  =   []
 Phase_Reference =   1 # Branche reference - 1
-ANTENNA_BEFORE_GLUE            = ['Ser_no_5_Sj1x_Sj2x.S2P', 'Ser_no_5_Sj1x_Sj3x.S2P', 'Ser_no_5_Sj1x_Sj4x.S2P', 'Ser_no_5_Sj2x_Sj3x.S2P','Ser_no_5_Sj2x_Sj4x.S2P', 'Ser_no_5_Sj3x_Sj4x.S2P' ]
-ANTENNA_AFTER_GLUE             = ['111129-10_1a.S2P', '111129-10_2a.S2P', '111129-10_3a.S2P', '111129-10_4a.S2P','111129-10_5a.S2P', '111129-10_6a.S2P' ]
+SN_NAME = 'Ser_no_16'
+SN_NAME_DIRECTORY ="111130-16"
+ANTENNA_BEFORE_GLUE            = [SN_NAME+'_Sj1x_Sj3x.S2P',SN_NAME+'_Sj1x_Sj3x.S2P', SN_NAME+'_Sj1x_Sj4x.S2P', SN_NAME+'_Sj2x_Sj3x.S2P', SN_NAME+'_Sj2x_Sj4x.S2P',SN_NAME+'_Sj3x_Sj4x.S2P' ]
+ANTENNA_AFTER_GLUE             = [SN_NAME+'_Sj1x_Sj3x.S2P',SN_NAME+'_Sj1x_Sj3x.S2P', SN_NAME+'_Sj1x_Sj4x.S2P', SN_NAME+'_Sj2x_Sj3x.S2P', SN_NAME+'_Sj2x_Sj4x.S2P',SN_NAME+'_Sj3x_Sj4x.S2P' ]
 
-Path_to_S2P_AFTER          =   "H:\\DATA_WARE_HOUSE\\LNB_Antenna\\efterlim\\"
-Path_to_S2P_BEFORE           =   "H:\\DATA_WARE_HOUSE\\LNB_Antenna\\førlim\\internal\\"
-Path_to_WORKING_DIRECTORY_BEFORE_GLUE   =   "H:\\DATA_WARE_HOUSE\\LNB_Antenna\\DataWareHouse\\BEFORE"
-Path_to_WORKING_DIRECTORY_AFTER_GLUE   =   "H:\\DATA_WARE_HOUSE\\LNB_Antenna\\DataWareHouse\\AFTER"
-Path_to_WORKING_DIRECTORY_COMPARISON   =   "H:\\DATA_WARE_HOUSE\\LNB_Antenna\\DataWareHouse\\COMPARISON"
+Path_to_S2P_AFTER            =   "H:\\DATA_WARE_HOUSE\\LNB_Antenna\\DataWareHouse\\"+SN_NAME_DIRECTORY+"\\internal\\"
+Path_to_S2P_BEFORE           =   "H:\\DATA_WARE_HOUSE\\LNB_Antenna\\DataWareHouse\\"+SN_NAME_DIRECTORY+"\\internal\\"
+Path_to_WORKING_DIRECTORY_BEFORE_GLUE   =   "H:\\DATA_WARE_HOUSE\\LNB_Antenna\\DataWareHouse\\"+SN_NAME_DIRECTORY+"\\SN"+SN_NAME_DIRECTORY+"\\"
+Path_to_WORKING_DIRECTORY_AFTER_GLUE    =   "H:\\DATA_WARE_HOUSE\\LNB_Antenna\\DataWareHouse\\"+SN_NAME_DIRECTORY+"\\SN"+SN_NAME_DIRECTORY+"\\"
+Path_to_WORKING_DIRECTORY_COMPARISON    =   "H:\\DATA_WARE_HOUSE\\LNB_Antenna\\DataWareHouse\\"+SN_NAME_DIRECTORY+"\\SN"+SN_NAME_DIRECTORY+"_COMPARISON\\"
 X_band_RL_Antenna_SPEC = -15
 X_band_COUPLING_Antenna_SPEC = -15
 X_band_COUPLING_Antenna_3_1_SPEC = -15
-_frequency_band_lowest_limit_MHz    =   9.280*1e9
-_frequency_band_highest_limit_MHz   =   9.4die20*1e9
+_frequency_band_lowest_limit_MHz    =   9.200*1e9
+_frequency_band_highest_limit_MHz   =   9.420*1e9
 
 
 VNA_P1_BEFORE.change_name(Path_to_S2P_BEFORE+ANTENNA_BEFORE_GLUE[0])
@@ -100,6 +102,8 @@ VNA_P6_AFTER.change_working_directory(Path_to_WORKING_DIRECTORY_AFTER_GLUE)
 
 VNA_TEMP_CONCAT.change_working_directory(Path_to_WORKING_DIRECTORY_COMPARISON)
 
+
+
 [s11_P1, s11_P2, s11_P3, s11_P4,s11_P5,s11_P6,Frequency_Vector] = VNA_TEMP.concat_S_parameter_ports(VNA_P1_AFTER,VNA_P2_AFTER,VNA_P3_AFTER,VNA_P4_AFTER,VNA_P5_AFTER, VNA_P6_AFTER,"s11")
 [s22_P1, s22_P2, s22_P3, s22_P4,s22_P5,s22_P6,Frequency_Vector] = VNA_TEMP.concat_S_parameter_ports(VNA_P1_AFTER,VNA_P2_AFTER,VNA_P3_AFTER,VNA_P4_AFTER,VNA_P5_AFTER, VNA_P6_AFTER, "s22")
 [s12_P1, s12_P2, s12_P3, s12_P4,s12_P5,s12_P6,Frequency_Vector] = VNA_TEMP.concat_S_parameter_ports(VNA_P1_AFTER,VNA_P2_AFTER,VNA_P3_AFTER,VNA_P4_AFTER,VNA_P5_AFTER, VNA_P6_AFTER, "s12")
@@ -107,12 +111,12 @@ VNA_TEMP_CONCAT.change_working_directory(Path_to_WORKING_DIRECTORY_COMPARISON)
 
 [ status, _Performance_Return_Loss_J1X_low_freq]    = GAIN.find_value_at_spec(Frequency_Vector, s11_P1, _frequency_band_lowest_limit_MHz)
 [ status, _Performance_Return_Loss_J1X_high_freq]   = GAIN.find_value_at_spec(Frequency_Vector, s11_P1, _frequency_band_highest_limit_MHz)
-[ status, _Performance_Return_Loss_J2X_low_freq]    = GAIN.find_value_at_spec(Frequency_Vector, s11_P4, _frequency_band_lowest_limit_MHz)
-[ status, _Performance_Return_Loss_J2X_high_freq]   = GAIN.find_value_at_spec(Frequency_Vector, s11_P4, _frequency_band_highest_limit_MHz)
-[ status, _Performance_Return_Loss_J3X_low_freq]    = GAIN.find_value_at_spec(Frequency_Vector, s11_P6, _frequency_band_lowest_limit_MHz)
-[ status, _Performance_Return_Loss_J3X_high_freq]   = GAIN.find_value_at_spec(Frequency_Vector, s11_P6, _frequency_band_highest_limit_MHz)
-[ status, _Performance_Return_Loss_J4X_low_freq]    = GAIN.find_value_at_spec(Frequency_Vector, s22_P4, _frequency_band_lowest_limit_MHz)
-[ status, _Performance_Return_Loss_J4X_high_freq]   = GAIN.find_value_at_spec(Frequency_Vector, s22_P4, _frequency_band_highest_limit_MHz)
+[ status, _Performance_Return_Loss_J2X_low_freq]    = GAIN.find_value_at_spec(Frequency_Vector, s11_P2, _frequency_band_lowest_limit_MHz)
+[ status, _Performance_Return_Loss_J2X_high_freq]   = GAIN.find_value_at_spec(Frequency_Vector, s11_P2, _frequency_band_highest_limit_MHz)
+[ status, _Performance_Return_Loss_J3X_low_freq]    = GAIN.find_value_at_spec(Frequency_Vector, s11_P3, _frequency_band_lowest_limit_MHz)
+[ status, _Performance_Return_Loss_J3X_high_freq]   = GAIN.find_value_at_spec(Frequency_Vector, s11_P3, _frequency_band_highest_limit_MHz)
+[ status, _Performance_Return_Loss_J4X_low_freq]    = GAIN.find_value_at_spec(Frequency_Vector, s11_P4, _frequency_band_lowest_limit_MHz)
+[ status, _Performance_Return_Loss_J4X_high_freq]   = GAIN.find_value_at_spec(Frequency_Vector, s11_P4, _frequency_band_highest_limit_MHz)
 
 
 [ status, _Performance_Coupling_Loss_J1XJ2X_low_freq]    = GAIN.find_value_at_spec(Frequency_Vector, s12_P1, _frequency_band_lowest_limit_MHz)
@@ -153,7 +157,7 @@ print('COUPLING_high_bound_J3XJ4X:',"{:.2f}".format(_Performance_Coupling_Loss_J
 
 
 _s_param_list   =   ['S11', 'S22', 'S21', 'S12']
-_legend_list    =   ['RETURN LOSS in dB - Back plate not mounted','COUPLING in dB - Back plate not mounted', 'RETURN LOSS in dB - Back plate mounted', 'COUPLING in dB - Back plate mounted']
+_legend_list    =   ['RETURN LOSS in dB - '+ SN_NAME_DIRECTORY,'COUPLING in dB - '+ SN_NAME_DIRECTORY, 'RETURN LOSS in dB - '+ SN_NAME_DIRECTORY, 'COUPLING in dB - '+ SN_NAME_DIRECTORY]
 _type_of_plot   =   ['magnitude_dB']
 _port_naming    =   ['PORTJ1X','PORTJ2X','PORTJ3X','PORTJ4X','J1XtoJ2X','J1XtoJ3X','J1XtoJ4X','J2XtoJ3X','J2XtoJ4X','J3XtoJ5X']
 
@@ -169,13 +173,13 @@ VNA_P4_AFTER.save(_port_naming[1]+' '+_legend_list[2], _type_of_plot[0], _s_para
 VNA_P6_AFTER.save(_port_naming[3]+' '+_legend_list[2], _type_of_plot[0], _s_param_list[0], X_band_RL_Antenna_SPEC)
 VNA_P4_AFTER.save(_port_naming[2]+' '+_legend_list[2], _type_of_plot[0], _s_param_list[1], X_band_RL_Antenna_SPEC)
 
-### Performance in Coupling loss After
-VNA_P1_AFTER.save(_port_naming[0]+_port_naming[1]+' '+_legend_list[3], _type_of_plot[0], _s_param_list[3], X_band_COUPLING_Antenna_SPEC)
-VNA_P2_AFTER.save(_port_naming[0]+_port_naming[2]+' '+_legend_list[3], _type_of_plot[0], _s_param_list[3], X_band_COUPLING_Antenna_SPEC)
-VNA_P3_AFTER.save(_port_naming[0]+_port_naming[3]+' '+_legend_list[3], _type_of_plot[0], _s_param_list[3], X_band_COUPLING_Antenna_SPEC)
-VNA_P4_AFTER.save(_port_naming[1]+_port_naming[2]+' '+_legend_list[3], _type_of_plot[0], _s_param_list[3], X_band_COUPLING_Antenna_SPEC)
-VNA_P5_AFTER.save(_port_naming[1]+_port_naming[3]+' '+_legend_list[3], _type_of_plot[0], _s_param_list[3], X_band_COUPLING_Antenna_SPEC)
-VNA_P6_AFTER.save(_port_naming[2]+_port_naming[3]+' '+_legend_list[3], _type_of_plot[0], _s_param_list[3], X_band_COUPLING_Antenna_SPEC)
+### Performance in Coupling loss Before
+VNA_P1_BEFORE.save(_port_naming[0]+_port_naming[1]+' '+_legend_list[1], _type_of_plot[0], _s_param_list[3], X_band_COUPLING_Antenna_SPEC)
+VNA_P2_BEFORE.save(_port_naming[0]+_port_naming[2]+' '+_legend_list[1], _type_of_plot[0], _s_param_list[3], X_band_COUPLING_Antenna_SPEC)
+VNA_P3_BEFORE.save(_port_naming[0]+_port_naming[3]+' '+_legend_list[1], _type_of_plot[0], _s_param_list[3], X_band_COUPLING_Antenna_SPEC)
+VNA_P4_BEFORE.save(_port_naming[1]+_port_naming[2]+' '+_legend_list[1], _type_of_plot[0], _s_param_list[3], X_band_COUPLING_Antenna_SPEC)
+VNA_P5_BEFORE.save(_port_naming[1]+_port_naming[3]+' '+_legend_list[1], _type_of_plot[0], _s_param_list[3], X_band_COUPLING_Antenna_SPEC)
+VNA_P6_BEFORE.save(_port_naming[2]+_port_naming[3]+' '+_legend_list[1], _type_of_plot[0], _s_param_list[3], X_band_COUPLING_Antenna_SPEC)
 
 ### Performance in Return Loss Before and After on same plots
 VNA_TEMP_CONCAT.save_2_ports(VNA_P1_BEFORE,_port_naming[0]+_legend_list[0], _type_of_plot[0], _s_param_list[0],VNA_P1_AFTER,_port_naming[0]+_legend_list[2], _type_of_plot[0], _s_param_list[0], X_band_RL_Antenna_SPEC)

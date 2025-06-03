@@ -48,7 +48,7 @@ _lim        =   0
 _data       =   []
 
 ### references given on the package from production
-_LNB_number = 1
+_LNB_number = 4
 _LNB_serial_number = 1
 _Branche_number = 4
 _str_IP_vector_analyzer = "10.0.8.112"
@@ -87,7 +87,7 @@ _file_name_Spurious             =   ''
 
 _date_manufacturing_creation    =   '2025-01-13'
 _data_check_out_test            =   '2025-01-13'
-_Adr_LNB                        = ['0x48','0x48','0x48','0x48' ]
+_Adr_LNB                        = ['0x48','0x49','0x4A','0x4B' ]
 # for test
 #_Adr_LNB                        = [0x4C,0x4C,0x4C,0x4C]
 
@@ -125,7 +125,7 @@ else:
 
 ## status 20/12 removing the adress verification
 ##if (_LNB_number > 0):
-#Status, VNA_1.temperature_check_out,  _port, _inuse, VNA_1.serial_number                    =      LNA.LNA_Identification(_LNB_number)
+Status, VNA_1.temperature_check_out,  _port, _inuse, VNA_1.serial_number                    =      LNA.LNA_Identification(_LNB_number)
 
 #Status, _file_name_for_saving_SC, _file_name_for_saving_S2P,_data                               =      GAIN._S_BAND_SPARAMETER(_LNB_number, _LNB_serial_number, _str_IP_vector_analyzer)
 
@@ -133,7 +133,7 @@ else:
 
 #_NF_passed_status,_file_name_NF                                                            =      NF._NOISE_FIGURE_MEASURMENTS(0, 0, 0, 0, 0, 0, 0, _LNB_number, _LNB_serial_number)
 
-_NF_passed_status,_file_name_NF = NF._NOISE_FIGURE_MEASURMENTS_X_BAND2()
+#_NF_passed_status,_file_name_NF = NF._NOISE_FIGURE_MEASURMENTS_X_BAND2()
 
 #_SPURIOUS_passed_status, _file_name_Spurious                                               =      SP._SPURIOUS_MEASURMENTS_X_BAND(pdiv,ref,V_bw,R_bw,avg,Stop_freq,Start_freq,C_freq,points,offset,_lim, _LNB_number, _Branche_number, '10.0.9.212')
 VNA_1.Spurious              = _file_name_Spurious

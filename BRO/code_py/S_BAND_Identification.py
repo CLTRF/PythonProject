@@ -50,7 +50,7 @@ def LNA_Identification(lna_no):
         data_out = array('B', [0, 0])
 
         if lna_no==1:
-            addr=0x48 #lna #1
+            addr=0x49 #lna #1
         elif lna_no==2:
             addr=0x4A #lna #2
         elif lna_no==3:
