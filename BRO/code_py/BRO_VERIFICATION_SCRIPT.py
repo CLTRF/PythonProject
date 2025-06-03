@@ -50,6 +50,7 @@ _LNA_number = 4
 
 _LNA_serial_number = 102
 _str_IP_vector_analyzer = "10.0.8.112"
+_str_IP_spectrum_analyzer = "10.0.9.212"
 
 if (_LNA_number == 0):
     object_name = 'cal_kit'
@@ -123,14 +124,14 @@ else:
 
 ## status 20/12 removing the adress
 # verification##if (_LNA_number > 0):
-Status, VNA_1.temperature_check_out,  _port, _inuse, VNA_1.serial_number                    =      LNA.LNA_Identification(_LNA_number)
+##Status, VNA_1.temperature_check_out,  _port, _inuse, VNA_1.serial_number                    =      LNA.LNA_Identification(_LNA_number)
 
 ##status, _file_name_for_saving_SC, _file_name_for_saving_S2P,_data                               =      GAIN._S_BAND_SPARAMETER(_LNA_number, _LNA_serial_number, _str_IP_vector_analyzer)
 
 ### Temporary
 
 #_NF_passed_status,_file_name_NF                                                            =      NF._NOISE_FIGURE_MEASURMENTS(0, 0, 0, 0, 0, 0, 0, _LNA_number, _LNA_serial_number)
-#_SPURIOUS_passed_status, _file_name_Spurious                                               =      SP._SPURIOUS_MEASURMENTS(pdiv,ref,V_bw,R_bw,avg,Stop_freq,Start_freq,C_freq,points,offset,_lim, _LNA_number, _LNA_serial_number)
+_SPURIOUS_passed_status, _file_name_Spurious                                               =      SP._SPURIOUS_MEASURMENTS(pdiv,ref,V_bw,R_bw,avg,Stop_freq,Start_freq,C_freq,points,offset,_lim, _LNA_number, _LNA_serial_number, _str_IP_spectrum_analyzer)
 
 VNA_1.Spurious              = _file_name_Spurious
 VNA_1.adress_hexadecimal    = _Adr_LNA[_LNA_number-1]

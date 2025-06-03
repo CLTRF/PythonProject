@@ -66,7 +66,7 @@ csv_myfile=myfile+".csv"
 png_myfile=myfile+".png"
 output = gs_instrument.CsvWriter(csv_myfile)
 #sa =gs_instrument.spectrum_analyzer
-sa.reset()  #reset spectrum analyzer
+#sa.reset()  #reset spectrum analyzer
 sa.set_frequency_center_Hz(frequency_Hz)   #set frequency
 #sa.set_sweep_time_s(sweep_time_s) #set time to record
 sa.set_frequency_span_Hz(frequency_span_Hz) #set span bandwidth
