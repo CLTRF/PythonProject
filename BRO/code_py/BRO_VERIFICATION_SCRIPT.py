@@ -130,8 +130,8 @@ else:
 
 ### Temporary
 
-#_NF_passed_status,_file_name_NF                                                            =      NF._NOISE_FIGURE_MEASURMENTS(0, 0, 0, 0, 0, 0, 0, _LNA_number, _LNA_serial_number)
-_SPURIOUS_passed_status, _file_name_Spurious                                               =      SP._SPURIOUS_MEASURMENTS(pdiv,ref,V_bw,R_bw,avg,Stop_freq,Start_freq,C_freq,points,offset,_lim, _LNA_number, _LNA_serial_number, _str_IP_spectrum_analyzer)
+_NF_passed_status,_file_name_NF                                                            =      NF._NOISE_FIGURE_MEASURMENTS(0, 0, 0, 0, 0, 0, 0, _LNA_number, _LNA_serial_number)
+#_SPURIOUS_passed_status, _file_name_Spurious                                               =      SP._SPURIOUS_MEASURMENTS(pdiv,ref,V_bw,R_bw,avg,Stop_freq,Start_freq,C_freq,points,offset,_lim, _LNA_number, _LNA_serial_number, _str_IP_spectrum_analyzer)
 
 VNA_1.Spurious              = _file_name_Spurious
 VNA_1.adress_hexadecimal    = _Adr_LNA[_LNA_number-1]

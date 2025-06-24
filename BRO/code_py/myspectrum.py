@@ -94,7 +94,10 @@ f_trace, P_trace = sa.get_trace_xy() #get data
   
   # Save the latest result to a file
 records = []
+i = 0
 for f, P in zip(f_trace, P_trace):
+    i += 1
+    print("in the loop:",i)
     record = {
         #"timestamp": mytime,  
         #**external_parameters,
@@ -105,5 +108,9 @@ for f, P in zip(f_trace, P_trace):
     }
     records.append(record)
 output.write_all(records)
+print("file name pour le png:", png_myfile)
+print("file name pour le csv:", csv_myfile)
 sa.save_screenshot_png(png_myfile) #save picture
+## fichier stocké sur D:/Users/Instrument/Document/SA/screen
+
 
